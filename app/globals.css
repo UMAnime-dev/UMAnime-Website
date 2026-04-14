@@ -1,26 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-navbar: var(--navbar-bg);
+  --color-navbar-hover: var(--navbar-hover);
+
+  --color-navbar-join: var(--navbar-join);
+  --color-navbar-join-hover: var(--navbar-join-hover);
+
+  --font-outfit: "Outfit", sans-serif;
+}
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  
+  --navbar-bg: #222032;
+  --navbar-hover: #000000;
+
+  --navbar-join: #83003d;
+  --navbar-join-hover: #ee81b4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+.dark {
+  --background: #191724;
+  --foreground: #E0DEF4;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --navbar-bg: #222032;
+  --navbar-hover: #ffffff15;
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --navbar-join: #f2a2c8;
+  --navbar-join-hover: #ee81b4;
 }
