@@ -11,6 +11,8 @@
   --color-navbar-join: var(--navbar-join);
   --color-navbar-join-hover: var(--navbar-join-hover);
 
+  --color-navbar-dropdown: var(--navbar-dropdown);
+
   --font-outfit: "Outfit", sans-serif;
 }
 
@@ -23,6 +25,8 @@
 
   --navbar-join: #83003d;
   --navbar-join-hover: #ee81b4;
+
+  --navbar-dropdown: #b6b6b6;
 }
 
 .dark {
@@ -34,4 +38,6 @@
 
   --navbar-join: #f2a2c8;
   --navbar-join-hover: #ee81b4;
+
+  --navbar-dropdown: #3f3a64;
 }
