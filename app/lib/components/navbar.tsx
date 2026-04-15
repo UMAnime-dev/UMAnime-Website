@@ -7,6 +7,7 @@ import { redirect, RedirectType } from "next/navigation"
 import { useState } from "react"
 
 import { Menu, ChevronDown } from 'lucide-react';
+import { redirects } from "@/config/redirects"
 
 export default function Navbar() {
 
@@ -49,7 +50,7 @@ export default function Navbar() {
                                     <button
                                         className="flex hover:underline text-foreground font-semibold font-outfit py-2 px-4 mx-1.75 rounded-lg cursor-pointer whitespace-nowrap"
                                         onClick={() => {
-                                            redirect('/about', RedirectType.push)
+                                            redirect(redirects.club, RedirectType.push)
                                         }}
                                     >
                                         UMAnime
@@ -57,7 +58,7 @@ export default function Navbar() {
                                     <button
                                         className="flex hover:underline text-foreground font-semibold font-outfit py-2 px-4 mx-1.75 rounded-lg cursor-pointer whitespace-nowrap"
                                         onClick={() => {
-                                            redirect('/yukari', RedirectType.push)
+                                            redirect(redirects.yukari, RedirectType.push)
                                         }}
                                     >
                                         Yukari
@@ -66,7 +67,7 @@ export default function Navbar() {
                                     <button
                                         className="flex hover:underline text-foreground font-semibold font-outfit py-2 px-4 mx-1.75 rounded-lg cursor-pointer whitespace-nowrap"
                                         onClick={() => {
-                                            redirect('/staff', RedirectType.push)
+                                            redirect(redirects.staff, RedirectType.push)
                                         }}
                                     >
                                         Staff Team
@@ -101,7 +102,7 @@ export default function Navbar() {
                                     <button
                                         className="flex hover:underline text-foreground font-semibold font-outfit py-2 px-4 mx-1.75 rounded-lg cursor-pointer whitespace-nowrap"
                                         onClick={() => {
-                                            redirect('/events', RedirectType.push)
+                                            redirect(redirects.events, RedirectType.push)
                                         }}
                                     >
                                         Schedule View
@@ -110,7 +111,7 @@ export default function Navbar() {
                                     <button
                                         className="flex hover:underline text-foreground font-semibold font-outfit py-2 px-4 mx-1.75 rounded-lg cursor-pointer whitespace-nowrap"
                                         onClick={() => {
-                                            redirect('/gallery', RedirectType.push)
+                                            redirect(redirects.gallery, RedirectType.push)
                                         }}
                                     >
                                         Gallery
@@ -121,7 +122,7 @@ export default function Navbar() {
 
                         <button className="flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             onClick={() => {
-                                redirect('/sponsors', RedirectType.push)
+                                redirect(redirects.sponsors, RedirectType.push)
                             }}
                         >
                             Sponsors
@@ -129,7 +130,7 @@ export default function Navbar() {
 
                         <button className="flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             onClick={() => {
-                                redirect('/contact', RedirectType.push)
+                                redirect(redirects.contact, RedirectType.push)
                             }}
                         >
                             Contact Us
@@ -137,7 +138,7 @@ export default function Navbar() {
 
                         <button className="flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 mx-7 rounded-lg cursor-pointer"
                             onClick={() => {
-                                redirect('/onboarding', RedirectType.push)
+                                redirect(redirects.onboarding, RedirectType.push)
                             }}
                         >   
                             Join us!
@@ -161,19 +162,19 @@ export default function Navbar() {
                         </button>
                         {mobileAboutDropdown && (
                             <div className={`flex flex-col ml-4`}>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/about', RedirectType.push)}>
+                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.club, RedirectType.push)}>
                                     UMAnime
                                 </button>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/yukari', RedirectType.push)}>
+                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.yukari, RedirectType.push)}>
                                     Yukari
                                 </button>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/staff', RedirectType.push)}>
+                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.staff, RedirectType.push)}>
                                     Staff Team
                                 </button>
                             </div>
                         )}
 
-                        <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/membership', RedirectType.push)}>
+                        <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.membership, RedirectType.push)}>
                             Membership
                         </button>
 
@@ -183,24 +184,24 @@ export default function Navbar() {
                         </button>
                         {mobileEventsDropdown && (
                             <div className={`flex flex-col ml-4`}>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/events', RedirectType.push)}>
+                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.events, RedirectType.push)}>
                                     Schedule View
                                 </button>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/gallery', RedirectType.push)}>
+                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.gallery, RedirectType.push)}>
                                     Gallery
                                 </button>
                             </div>
                         )}
 
-                        <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/sponsors', RedirectType.push)}>
+                        <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.sponsors, RedirectType.push)}>
                             Sponsors
                         </button>
 
-                        <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect('/contact', RedirectType.push)}>
+                        <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.contact, RedirectType.push)}>
                             Contact Us
                         </button>
 
-                        <button className="flex flex-row items-center text-left bg-navbar-join text-black font-bold font-outfit px-3 py-2 mt-3 rounded-xl" onClick={() => redirect('/onboarding', RedirectType.push)}>
+                        <button className="flex flex-row items-center text-left bg-navbar-join text-black font-bold font-outfit px-3 py-2 mt-3 rounded-xl" onClick={() => redirect(redirects.onboarding, RedirectType.push)}>
                             Join us!
                         </button>
                     </div>
