@@ -11,7 +11,7 @@ export default function Home() {
         alt="UM Anime Club Banner"
         width={1920}
         height={10}
-        className="w-full h-auto"
+        className="w-full h-[clamp(600px,40vw,800px)] object-cover"
         priority
       />
     </main>
