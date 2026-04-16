@@ -24,7 +24,7 @@ export default function Navbar() {
         <>
             <nav className={`w-full z-900 bg-navbar min-h-20 flex-col items-center px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'pb-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
-                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={120} height={120} className="object-cover"/>
+                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={110} height={110} className="object-cover"/>
 
                     {/* PC Version */}
                     <main className="navbar:flex! hidden flex-row ml-auto">
@@ -155,7 +155,7 @@ export default function Navbar() {
                 </header>
 
                 {mobileMenuOpen && (
-                    <div className="flex flex-col w-full min-h-20 bg-navbar-dropdown rounded-xl p-3">
+                    <div className="navbar:hidden! flex flex-col w-full min-h-20 bg-navbar-dropdown rounded-xl p-3">
                         <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => setMobileAboutDropdown(!mobileAboutDropdown)}>
                             About
                             <ChevronDown className={`ml-auto transition-transform ${mobileAboutDropdown ? 'rotate-180' : ''}`}/>

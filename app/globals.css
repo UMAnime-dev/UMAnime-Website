@@ -15,7 +15,9 @@
 
   --font-outfit: "Outfit", sans-serif;
 
+  --breakpoint-*: initial;
   --breakpoint-navbar: 930px;
+  --breakpoint-lg: 1080px;
 }
 
 :root {
