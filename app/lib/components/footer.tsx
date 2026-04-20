@@ -20,7 +20,7 @@ export default function Footer() {
                     width={110}
                     height={110}
                     style={{ height: 'auto' }}
-                    className="w-30 sm:w-[95px] md:w-[110px]"
+                    className="w-30 sm:w-23.75 md:w-27.5"
                     />
 
                     <section className="flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6">

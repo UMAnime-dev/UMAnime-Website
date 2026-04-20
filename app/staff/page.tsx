@@ -2,23 +2,11 @@
 
 import Footer from "../lib/components/footer";
 import Navbar from "../lib/components/navbar";
-import Markdown from "react-markdown"
 
 import { current_staff, categories } from "@/data/staff";
-import Image from "next/image";
 import StaffCard from "../lib/components/staffPage/StaffCard";
 
 export default function Staff() {
-
-    const loadMarkdown = async (file: string) => {
-        try {
-            const res = await fetch(file);
-            const text = await res.text();
-            return text;
-        } catch (err) {
-            console.error("Failed to load markdown:", err);
-        }
-    };
 
     return (
         <>
@@ -47,7 +35,7 @@ export default function Staff() {
                                         </h2>
 
                                         <div className="grid gap-9 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                            {categoryStaff.map((staff, i) => (
+                                            {categoryStaff.map((staff) => (
                                                 StaffCard({staff})
                                             ))}
                                         </div>

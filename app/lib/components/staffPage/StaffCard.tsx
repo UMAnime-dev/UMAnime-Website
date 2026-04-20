@@ -26,12 +26,12 @@ export default function StaffCard({staff}: {staff: StaffMember}) {
         }
 
         load();
-    }, []);
+    }, [staff.bio]);
 
 
     return (
         <article key={staff.name}
-        className={`${fullShow ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-999 min-w-100 min-h-100" : "transition-[scale] hover:scale-[1.02] hover:shadow-foreground/25 max-h-[520px] cursor-pointer"} overflow-hidden rounded-2xl bg-navbar-dropdown shadow-2xl/100 shadow-black flex flex-col`}
+        className={`${fullShow ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-999 min-w-100 min-h-100" : "transition-[scale] hover:scale-[1.02] hover:shadow-foreground/25 max-h-130 cursor-pointer"} overflow-hidden rounded-2xl bg-navbar-dropdown shadow-2xl/100 shadow-black flex flex-col`}
         onClick={() => {
             setFull(true)
         }}
