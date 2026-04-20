@@ -1,0 +1,3 @@
+Hi everyone! I'm Seth S and I'm part of the event planning team. I'm studying Data Science and going into my second year of the degree. 
+
+My favorite hobbies are playing Pokemon games and building Gunpla. Similarly, some of favorite anime are Pokemon and Gundam! I also love Initial D, Lycoris Recoil, and  K-On. I love all Pokemon equally! (Except for Munchlax and only specifically Generation 4's Munchlax since it took me 30 days to catch it and I lost a lot of friends along the way and...)

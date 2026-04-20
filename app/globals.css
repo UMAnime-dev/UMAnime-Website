@@ -13,12 +13,30 @@
 
   --color-navbar-dropdown: var(--navbar-dropdown);
 
+  --color-header-border: var(--header-border);
+
   --font-outfit: "Outfit", sans-serif;
 
   --breakpoint-*: initial;
   --breakpoint-navbar: 930px;
   --breakpoint-lg: 1080px;
+  --breakpoint-md: 824px;
+  --breakpoint-sm: 696px;
 }
+
+.markdown-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  display: block;
+  white-space: pre-wrap;
+}
+.markdown-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  display: block;
+  white-space: pre-wrap;
+}
+
 
 :root {
   --background: #ffffff;
@@ -31,6 +49,8 @@
   --navbar-join-hover: #ee81b4;
 
   --navbar-dropdown: #b6b6b6;
+
+  --header-border: #ee81b4;
 }
 
 .dark {
@@ -44,4 +64,6 @@
   --navbar-join-hover: #ee81b4;
 
   --navbar-dropdown: #3f3a64;
+
+  --header-border: #ee81b4;
 }

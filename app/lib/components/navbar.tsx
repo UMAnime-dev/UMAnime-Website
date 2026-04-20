@@ -24,15 +24,19 @@ export default function Navbar() {
         <>
             <nav className={`w-full z-900 bg-navbar min-h-20 flex-col items-center px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'pb-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
-                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={110} height={110} className="object-cover"/>
+                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={110} height={110} style={{ width: '110', height: '110' }} className="object-cover cursor-pointer" onClick={() => {redirect('/', RedirectType.push)}}/>
 
                     {/* PC Version */}
                     <main className="navbar:flex! hidden flex-row ml-auto">
 
                         {/* Click to view club info (including yukari), staff team*/}
                         <div className="relative"
-                            onMouseEnter={() => {setAboutDropdown(true)}}
-                            onMouseLeave={() => {setAboutDropdown(false)}}
+                            onMouseEnter={() => {
+                                setAboutDropdown(true)
+                            }}
+                            onMouseLeave={() => {
+                                setAboutDropdown(false)
+                            }}
                         >
                             <button
                                 className="bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"

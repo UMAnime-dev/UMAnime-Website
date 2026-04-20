@@ -19,7 +19,8 @@ export default function Footer() {
                     alt="UM Anime Club Logo"
                     width={110}
                     height={110}
-                    className="h-auto w-30 sm:w-[95px] md:w-[110px]"
+                    style={{ height: 'auto' }}
+                    className="w-30 sm:w-[95px] md:w-[110px]"
                     />
 
                     <section className="flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6">
