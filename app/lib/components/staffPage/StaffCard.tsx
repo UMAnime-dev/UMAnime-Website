@@ -5,10 +5,18 @@ import Markdown from "react-markdown";
 
 import { X } from 'lucide-react';
 
-export default function StaffCard({staff}: {staff: StaffMember}) {
+export default function StaffCard({
+  staff,
+  openStaff,
+  setOpenStaff
+}: {
+  staff: StaffMember;
+  openStaff: string | null;
+  setOpenStaff: (name: string | null) => void;
+}) {
 
     const [bio, setBio] = useState<string>("")
-    const [fullShow, setFull] = useState<boolean>(false)
+    const fullShow = openStaff === staff.name;
 
     useEffect(() => {
         const load = async () => {
@@ -31,9 +39,9 @@ export default function StaffCard({staff}: {staff: StaffMember}) {
 
     return (
         <article key={staff.name}
-        className={`${fullShow ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-999 min-w-100 min-h-100" : "transition-[scale] hover:scale-[1.02] hover:shadow-foreground/25 max-h-130 cursor-pointer"} overflow-hidden rounded-2xl bg-navbar-dropdown shadow-2xl/100 shadow-black flex flex-col`}
+        className={`${fullShow ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[999] max-h-[80vh] w-[clamp(400px,70vw,900px)] md:w-[40%]" : "transition-[scale] hover:scale-[1.02] hover:shadow-foreground/25 max-h-[520px] cursor-pointer overflow-hidden"} overflow-hidden rounded-2xl bg-navbar-dropdown shadow-2xl/100 shadow-black flex flex-col `}
         onClick={() => {
-            setFull(true)
+            setOpenStaff(staff.name)
         }}
         >
             {fullShow && (
@@ -41,7 +49,7 @@ export default function StaffCard({staff}: {staff: StaffMember}) {
                 className="absolute top-2 right-2 cursor-pointer z-999 p-2"
                 onClick={(e) => {
                 e.stopPropagation();
-                setFull(false);
+                setOpenStaff(null)
                 }}
             >
                 <X />
@@ -58,7 +66,7 @@ export default function StaffCard({staff}: {staff: StaffMember}) {
                     />
                 </div>
             </div>
-            <div className="flex flex-col justify-between p-6 text-foreground overflow-hidden text-ellipsis">
+            <div className={`flex flex-col justify-between p-6 text-foreground ${fullShow ? "overflow-y-auto" : "overflow-hidden text-ellipsis"}`}>
                 <div>
                     <h2 className="font-outfit text-[clamp(18px,1.5vw,22px)] font-bold! text-foreground text-center">
                         {staff.name}
