@@ -54,7 +54,7 @@ export default function Home() {
         alt="UM Anime Club Banner"
         width={1920}
         height={1080}
-        className="w-full h-auto object-center object-cover"
+        className="w-full h-auto max-h-190 object-center object-cover"
         priority
       />
       <section className="w-full px-6 py-12 sm:px-10 sm:py-16 lg:px-[clamp(40px,6vw,80px)] lg:py-20">
