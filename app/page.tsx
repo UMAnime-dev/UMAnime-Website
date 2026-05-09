@@ -103,7 +103,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full px-6 py-12 sm:px-10 sm:py-16 lg:px-[clamp(40px,6vw,80px)] lg:py-20">
+      <section className="w-full px-6 pb-12 sm:px-10 sm:pb-16 lg:px-[clamp(40px,6vw,80px)] lg:pb-20">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-10">
             <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground">

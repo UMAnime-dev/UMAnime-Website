@@ -4,7 +4,7 @@ import Footer from "../lib/components/footer";
 import Navbar from "../lib/components/navbar";
 
 import { current_staff, categories } from "@/data/staff";
-import StaffCard from "../lib/components/staffPage/StaffCard";
+import StaffCard from "../lib/components/StaffCard";
 import { useState } from "react";
 
 export default function Staff() {
@@ -20,10 +20,8 @@ export default function Staff() {
                         <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground border-l-4 border-header-border w-fit px-2">
                             Meet the UMAnime Team!
                         </h2>
-                        
                     </div>
                     <div className="w-full px-6 sm:px-10 md:px-2 lg:px-[clamp(100px,7.5vw,145px)] mb-20">
-
                         {
                             categories.map(({key,label}) => {
                                 const categoryStaff = current_staff.filter((staff) => staff.category === key)
