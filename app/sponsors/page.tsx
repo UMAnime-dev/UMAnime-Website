@@ -19,7 +19,7 @@ export default function SponsorPage() {
                         <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground border-l-4 border-header-border w-fit px-2">
                             Our Sponsors!
                         </h2>
-                        <section key="desc" className="flex flex-col gap-5 pt-15 mx-10 lg:mx-55 text-start">
+                        <section key="desc" className="flex flex-col gap-5 pt-15 mx-10 md:mx-40 lg:mx-50 text-start">
                             <p className="font-outfit md:text-base text-foreground w-full">
                                 Here is our list of our sponsors for the year 2025-2026. These sponsors are who have supported our events through the year and truly deserve their recognition.
                                 Sponsorship details & discount instructions can be found when you click on a sponsor button.
