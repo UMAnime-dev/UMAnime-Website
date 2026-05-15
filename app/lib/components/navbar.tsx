@@ -22,9 +22,9 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`w-full z-900 bg-navbar min-h-20 flex-col items-center px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'pb-4' : ''}`}>
+            <nav className={`w-full z-900 bg-navbar min-h-30 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
-                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={110} height={110} style={{ width: '110', height: '110' }} className="object-cover cursor-pointer" onClick={() => {redirect('/', RedirectType.push)}}/>
+                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-35 sm:w-40 md:w-45 object-cover cursor-pointer" onClick={() => {redirect('/', RedirectType.push)}}/>
 
                     {/* PC Version */}
                     <main className="navbar:flex! hidden flex-row ml-auto">
@@ -39,7 +39,7 @@ export default function Navbar() {
                             }}
                         >
                             <button
-                                className="bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                                className="text-xl bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                                 onClick={() => {
                                     setAboutDropdown(!aboutDropdown)
                                 }}
@@ -80,7 +80,7 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        <Link className="flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                        <Link className="text-xl flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             href="/membership">
                             Membership
                         </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
                             onMouseLeave={() => {setEventsDropdown(false)}}
                         >
                             <button
-                                className="bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                                className="text-xl bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                                 onClick={() => {
                                     setEventsDropdown(!eventsDropdown)
                                 }}
@@ -124,7 +124,7 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        <button className="flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                        <button className="text-xl flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.sponsors, RedirectType.push)
                             }}
@@ -132,7 +132,7 @@ export default function Navbar() {
                             Sponsors
                         </button>
 
-                        <button className="flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                        <button className="text-xl flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.contact, RedirectType.push)
                             }}
@@ -140,7 +140,7 @@ export default function Navbar() {
                             Contact Us
                         </button>
 
-                        <button className="flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 mx-7 rounded-lg cursor-pointer"
+                        <button className="text-xl flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 mx-7 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.onboarding, RedirectType.push)
                             }}
@@ -159,7 +159,7 @@ export default function Navbar() {
                 </header>
 
                 {mobileMenuOpen && (
-                    <div className="navbar:hidden! flex flex-col w-full min-h-20 bg-navbar-dropdown rounded-xl p-3">
+                    <div className="navbar:hidden! flex flex-col w-full min-h-20 bg-navbar-dropdown rounded-xl p-3 mt-2">
                         <button className="flex flex-row items-center text-left text-foreground font-semibold font-outfit px-3 py-2" onClick={() => setMobileAboutDropdown(!mobileAboutDropdown)}>
                             About
                             <ChevronDown className={`ml-auto transition-transform ${mobileAboutDropdown ? 'rotate-180' : ''}`}/>

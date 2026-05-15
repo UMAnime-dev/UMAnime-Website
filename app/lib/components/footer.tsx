@@ -15,37 +15,36 @@ export default function Footer() {
             <nav className="w-full bg-navbar px-[clamp(20px,5vw,60px)] py-5">
                 <footer className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-4 sm:gap-5">
                     <Image
-                    src="/UMAnime.svg"
-                    alt="UM Anime Club Logo"
-                    width={110}
-                    height={110}
-                    style={{ height: 'auto' }}
-                    className="w-30 sm:w-23.75 md:w-27.5"
+                        src="/UMAnime.svg"
+                        alt="UM Anime Club Logo"
+                        width={0}
+                        height={0}
+                        style={{ width: '110', height: '110' }}
+                        className="w-30 sm:w-24 md:w-28" 
                     />
-
                     <section className="flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6">
                         <button className="flex items-center justify-center gap-1.5 text-sm font-outfit leading-none text-foreground sm:text-base cursor-pointer hover:underline"
                             onClick={() => {redirect(redirects.instagram, RedirectType.push)}}>
                             <FaInstagram className="shrink-0 text-lg sm:text-xl" />
-                            <span className="leading-none">Instagram</span>
+                            <span className="leading-none tracking-wider">Instagram</span>
                         </button>
 
                         <button className="flex items-center justify-center gap-1.5 text-sm font-outfit leading-none text-foreground sm:text-base cursor-pointer hover:underline"
                             onClick={() => {redirect(redirects.discord, RedirectType.push)}}>
                             <FaDiscord className="shrink-0 text-lg sm:text-xl" />
-                            <span className="leading-none">Discord</span>
+                            <span className="leading-none tracking-wider">Discord</span>
                         </button>
 
                         <button className="flex items-center justify-center gap-1.5 text-sm font-outfit leading-none text-foreground sm:text-base cursor-pointer hover:underline"
                             onClick={() => {redirect(redirects.linktree, RedirectType.push)}}>
                             <TbBrandLinktree className="shrink-0 text-lg sm:text-xl" />
-                            <span className="leading-none">Linktree</span>
+                            <span className="leading-none tracking-wider">Linktree</span>
                         </button>
 
                         <button className="flex min-w-0 items-center justify-center gap-1.5 text-sm font-outfit leading-none text-foreground sm:text-base cursor-pointer hover:underline"
                             onClick={() => {redirect(redirects.email, RedirectType.push)}}>
                             <MdEmail className="shrink-0 text-lg sm:text-xl" />
-                            <span className="break-all leading-none sm:break-normal">
+                            <span className="break-all leading-none sm:break-normal tracking-wider">
                             umanimeclub@gmail.com
                             </span>
                         </button>

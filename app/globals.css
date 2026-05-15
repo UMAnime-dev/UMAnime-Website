@@ -20,7 +20,7 @@
   --font-mono: "Roboto Mono", monospace;
 
   --breakpoint-*: initial;
-  --breakpoint-navbar: 930px;
+  --breakpoint-navbar: 1050px;
   --breakpoint-lg: 1080px;
   --breakpoint-md: 824px;
   --breakpoint-sm: 696px;

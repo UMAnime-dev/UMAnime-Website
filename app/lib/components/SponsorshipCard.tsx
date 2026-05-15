@@ -40,7 +40,7 @@ export default function SponsorCard({
 
     return (
         <article key={sponsor.name}
-        className={`${fullShow ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-999 max-h-[80vh] w-[clamp(400px,70vw,900px)] md:w-[40%]" : "transition-[scale] hover:scale-[1.02] hover:shadow-foreground/25 max-h-130 cursor-pointer overflow-hidden"} overflow-hidden rounded-2xl bg-navbar-dropdown shadow-2xl/100 shadow-black flex flex-col `}
+        className={`${fullShow ? "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-999 max-h-[80vh] w-[clamp(400px,70vw,900px)] md:w-[40%] max-w-150" : "transition-[scale] hover:scale-[1.02] hover:shadow-foreground/25 max-h-130 cursor-pointer overflow-hidden max-w-100"} overflow-hidden rounded-2xl bg-navbar-dropdown shadow-2xl/100 shadow-black flex flex-col`}
         onClick={() => {
             setOpenSponsor(sponsor.name)
         }}
