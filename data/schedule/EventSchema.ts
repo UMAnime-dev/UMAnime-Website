@@ -6,7 +6,10 @@ export const EventSchema = z.object({
     photoUrl: z.url(),
     description: z.string(),
     location: z.string(),
-    date: z.date()
+    startDate: z.date(),
+    endDate: z.date(),
+    rsvp: z.optional(z.string()),
+    membership: z.boolean().default(true)
 });
 
 export const EventsSchema = z.array(EventSchema);
