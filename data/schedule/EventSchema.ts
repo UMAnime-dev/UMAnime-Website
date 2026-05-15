@@ -3,7 +3,8 @@ import { z } from "zod";
 export const EventSchema = z.object({
     id: z.string(),
     name: z.string(),
-    photoUrl: z.url(),
+    photoUrl: z.string(),
+    photoOffset: z.optional(z.string()).default("0%_0%"), // X%_Y% format for object position
     description: z.string(),
     location: z.string(),
     startDate: z.date(),

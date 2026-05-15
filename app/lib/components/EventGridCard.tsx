@@ -1,47 +1,55 @@
 "use client"
 
 import { Event } from "@/data/schedule/EventSchema";
-import { Ban, BookUser, Clock, IdCard, MapPin } from "lucide-react";
+import { Ban, BookUser, Calendar, Clock, IdCard, MapPin } from "lucide-react";
 import { redirect, RedirectType } from "next/navigation";
+import Image from "next/image";
 
-export default function EventListCard({eventData}: {eventData: Event}) {
+export default function EventGridCard({eventData}: {eventData: Event}) {
     return (
         <main
-            className="relative gap-2 w-full md:max-w-none max-w-120 overflow-x-hidden bg-eventCard rounded-xl flex md:flex-row flex-col items-center py-5 md:py-2.5 shadow-black shadow-2xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/25"
+            className="relative gap-2 w-full overflow-x-hidden bg-eventCard rounded-xl flex flex-col items-center pb-7 shadow-black shadow-2xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/25"
         >
 
             {/* Date Section */}
-            <section
-                className="min-w-50 xl:min-w-65 relative flex flex-col items-center justify-center gap-2"
-            >
-                <span className="font-outfit">
-                    {eventData.startDate.toLocaleString("en-US", { weekday: "long" })}
-                </span>
-
-                <h1
-                    className="font-outfit font-bold text-5xl"
-                >
-                    {eventData.startDate.getDate()}
-                </h1>
+            <section className="w-full h-50">
+                <Image src={eventData.photoUrl} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${eventData.photoOffset}]`} alt={eventData.id}/>
             </section>
-
             <h1
-                className="md:hidden! py-2 mx-7 font-roboto font-semibold tracking-wide text-[clamp(14px,2.35vw,24px)]"
+                className="py-6 mx-7 font-roboto font-semibold tracking-wide text-xl md:text-2xl text-center"
             >
                 {eventData.name}
             </h1>
 
             {/* Event Details Section */}
             <section
-                className="relative w-full md:w-100 lg:w-120 2xl:w-140 px-5 md:px-0 md:flex md:flex-col items-start justify-center gap-3 md:py-3 grid grid-cols-1"
+                className="w-full px-5 pb-5 flex flex-col items-start justify-center gap-3"
             >
+                <div
+                    className="flex flex-row justify-center items-center gap-2"
+                >
+                    <Calendar />
+
+                    <span
+                        className="font-outfit tracking-wider text-base"
+                    >
+                        {
+                            eventData.startDate.toLocaleDateString("en-US", {
+                                weekday: "long",
+                                month: "long",
+                                day: "numeric",
+                                year: "numeric"
+                            })
+                        }
+                    </span>
+                </div>
                 <div
                     className="flex flex-row justify-center items-center gap-2"
                 >
                     <Clock />
 
                     <span
-                        className="font-outfit tracking-wider text-[clamp(12px,2.35vw,14px)] lg:text-base"
+                        className="font-outfit tracking-wider text-base"
                     >
                         {
                             eventData.startDate.toLocaleTimeString("en-US", {
@@ -56,41 +64,35 @@ export default function EventListCard({eventData}: {eventData: Event}) {
                     </span>
                 </div>
 
-                <h1
-                    className="hidden md:block! mx-7 font-roboto font-semibold tracking-wide text-[clamp(14px,2.35vw,24px)] lg:text-3xl"
-                >
-                    {eventData.name}
-                </h1>
-
                 <div
                     className="flex flex-row justify-center items-center gap-2"
                 >
                     <MapPin />
 
                     <span
-                        className="font-outfit tracking-wider text-[clamp(12px,1.5vw,14px)] lg:text-base"
+                        className="font-outfit tracking-wider text-base"
                     >
                         {eventData.location}
+                    </span>
+                </div>
+
+                <div
+                    className="w-full flex flex-row gap-2"
+                >
+                    <IdCard />
+
+                    <span
+                        className="font-outfit tracking-wider text-base"
+                    >
+                        Membership {eventData.membership ? "Required" : "Not Required"}
                     </span>
                 </div>
             </section>
 
             {/* RSVP */}
             <section
-                className="w-90 flex flex-col items-center justify-end gap-3 md:my-5 md:ml-auto md:mt-auto"
+                className="w-full flex flex-col items-center"
             >
-                <div
-                    className="w-full flex flex-row items-center justify-center gap-2"
-                >
-                    <IdCard />
-
-                    <span
-                        className="font-outfit tracking-wider"
-                    >
-                        Membership {eventData.membership ? "Required" : "Not Required"}
-                    </span>
-                </div>
-
                 <button
                     className={`flex flex-row items-center justify-center w-25 h-8 gap-1 rounded-lg bg-navbar-join text-black font-outfit font-bold tracking-wide ${!eventData.rsvp ? "cursor-not-allowed opacity-80" : "cursor-pointer hover:bg-navbar-join-hover"}`}
                     onClick={() => {

@@ -17,6 +17,9 @@
 
   --color-eventCard: var(--event-bg);
 
+  --color-eventView: var(--event-view);
+  --color-eventView-hover: var(--event-view-hover);
+
   --color-header-border: var(--header-border);
 
   --font-outfit: "Outfit", sans-serif;
@@ -61,6 +64,8 @@
   --header-border: #ee81b4;
 
   --event-bg: #3f3a64;
+  --event-view: #222032;
+  --event-view-hover: #2f2c4b;
 }
 
 .dark {
@@ -76,4 +81,6 @@
   --navbar-dropdown: #3f3a64;
 
   --event-bg: #3f3a64a4;
+  --event-view: #2f2c4b;
+  --event-view-hover: #373452;
 }
