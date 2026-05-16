@@ -22,6 +22,8 @@
 
   --color-header-border: var(--header-border);
 
+  --color-gallery-hover: var(--gallery-hover);
+
   --font-outfit: "Outfit", sans-serif;
   --font-mono: "Roboto Mono", monospace;
   --font-roboto: "Roboto", sans-serif;
@@ -66,6 +68,8 @@
   --event-bg: #3f3a64;
   --event-view: #222032;
   --event-view-hover: #2f2c4b;
+
+  --gallery-hover: #f2a2c8;
 }
 
 .dark {
@@ -83,4 +87,6 @@
   --event-bg: #3f3a64a4;
   --event-view: #2f2c4b;
   --event-view-hover: #373452;
+
+  --gallery-hover: #ff7cb9;
 }

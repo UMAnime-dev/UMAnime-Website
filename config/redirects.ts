@@ -4,7 +4,7 @@ export const redirects = {
     staff: "/staff",
     membership: "/membership",
     events: "/events",
-    gallery: "/gallery",
+    gallery: "/events#gallery",
     sponsors: "/sponsors",
     contact: "/contact",
     onboarding: "/onboarding",
