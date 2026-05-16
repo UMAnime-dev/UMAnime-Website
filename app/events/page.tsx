@@ -54,7 +54,7 @@ export default function EventPage() {
                                 const isCollapsed = collapsedMonths[month]
 
                                 return (
-                                    <section key={month} className="mb-25 sm:mb-15">
+                                    <section key={month} className={`mb-25 sm:mb-15 ${isCollapsed ? "mb-5!" : ""}`}>
                                         <h2 className="flex flex-row font-outfit font-semibold tracking-wide text-foreground text-[clamp(18px,1.3vw,25px)] w-full border-b-4 border-foreground pl-3 pb-2 mb-6">
                                             {month}
                                             <button 
