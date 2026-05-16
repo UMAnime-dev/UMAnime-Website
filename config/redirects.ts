@@ -7,7 +7,7 @@ export const redirects = {
     gallery: "/events#gallery",
     sponsors: "/sponsors",
     contact: "/contact",
-    onboarding: "/onboarding",
+    onboarding: "https://discord.gg/G52Wn6a",
     instagram: "https://instagram.com/umanimeclub",
     discord: "https://discord.gg/G52Wn6a",
     linktree: "https://linktr.ee/umanime",

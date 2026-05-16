@@ -22,7 +22,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`w-full z-900 bg-navbar min-h-30 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
+            <nav className={`w-full z-900 bg-navbar min-h-25 xl:min-h-27 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
                     <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-30 sm:w-35 md:w-40 object-cover cursor-pointer" onClick={() => {redirect('/', RedirectType.push)}}/>
 
@@ -166,13 +166,13 @@ export default function Navbar() {
                         </button>
                         {mobileAboutDropdown && (
                             <div className={`flex flex-col ml-4`}>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.club, RedirectType.push)}>
+                                <button className="text-left text-[14px] text-foreground font-normal font-outfit px-3 py-2" onClick={() => redirect(redirects.club, RedirectType.push)}>
                                     UMAnime
                                 </button>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.yukari, RedirectType.push)}>
+                                <button className="text-left text-[14px] text-foreground font-normal font-outfit px-3 py-2" onClick={() => redirect(redirects.yukari, RedirectType.push)}>
                                     Yukari
                                 </button>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.staff, RedirectType.push)}>
+                                <button className="text-left text-[14px] text-foreground font-normal font-outfit px-3 py-2" onClick={() => redirect(redirects.staff, RedirectType.push)}>
                                     Staff Team
                                 </button>
                             </div>
@@ -188,10 +188,10 @@ export default function Navbar() {
                         </button>
                         {mobileEventsDropdown && (
                             <div className={`flex flex-col ml-4`}>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.events, RedirectType.push)}>
+                                <button className="text-left text-[14px] text-foreground font-normal font-outfit px-3 py-2" onClick={() => redirect(redirects.events, RedirectType.push)}>
                                     Schedule View
                                 </button>
-                                <button className="text-left text-[13px] text-foreground font-semibold font-outfit px-3 py-2" onClick={() => redirect(redirects.gallery, RedirectType.push)}>
+                                <button className="text-left text-[14px] text-foreground font-normal font-outfit px-3 py-2" onClick={() => redirect(redirects.gallery, RedirectType.push)}>
                                     Gallery
                                 </button>
                             </div>
