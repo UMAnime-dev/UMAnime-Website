@@ -63,7 +63,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -81,14 +81,27 @@ jobs:
       - build
 
     steps:
+      - name: Install cloudflared
+        run: |
+          curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+          chmod +x cloudflared
+          sudo mv cloudflared /usr/local/bin/cloudflared
+
+      - name: Add SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.UMANIME_SSH_KEY }}" > ~/.ssh/umanime_key
+          chmod 600 ~/.ssh/umanime_key
+
       - name: Deploy to VM
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.UMANIME_HOST }}
-          username: ${{ secrets.UMANIME_USER }}
-          key: ${{ secrets.UMANIME_SSH_KEY }}
-          script: |
-            cd ${{ secrets.UMANIME_PROJECT_PATH }}
+        run: |
+          ssh -i ~/.ssh/umanime_key \
+            -o ProxyCommand="cloudflared access ssh --hostname ${{ secrets.UMANIME_HOST }} --service-token-id ${{ secrets.CF_ACCESS_CLIENT_ID }} --service-token-secret ${{ secrets.CF_ACCESS_CLIENT_SECRET }}" \
+            -o StrictHostKeyChecking=no \
+            ${{ secrets.UMANIME_SSH_USER }}@${{ secrets.UMANIME_HOST }} << 'EOF'
+            set -e
+
+            cd ${{ secrets.UMANIME_PATH }}
 
             git fetch origin
             git checkout preview
@@ -99,3 +112,4 @@ jobs:
 
             sudo systemctl restart umanime-web
             sudo systemctl status umanime-web --no-pager
+          EOF
