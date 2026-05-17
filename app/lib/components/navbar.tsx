@@ -24,7 +24,7 @@ export default function Navbar() {
         <>
             <nav className={`w-full z-900 bg-navbar min-h-25 xl:min-h-27 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
-                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-30 sm:w-35 md:w-40 object-cover cursor-pointer" onClick={() => {redirect('/', RedirectType.push)}}/>
+                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-30 sm:w-35 md:w-40 object-cover cursor-pointer" loading="eager" onClick={() => {redirect('/', RedirectType.push)}}/>
 
                     {/* PC Version */}
                     <main className="navbar:flex! hidden flex-row ml-auto">

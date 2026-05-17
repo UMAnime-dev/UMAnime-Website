@@ -20,6 +20,7 @@ export default function Footer() {
                         width={0}
                         height={0}
                         style={{ width: '110', height: '110' }}
+                        loading="eager"
                         className="w-30 sm:w-24 md:w-28" 
                     />
                     <section className="flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6">
