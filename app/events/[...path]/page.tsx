@@ -7,6 +7,7 @@ import { getImagesFromFolder } from "@/data/gallery/ServerFunctions"
 import { redirect, RedirectType } from "next/navigation"
 
 import GalleryView from "./GalleryView"
+import ReturnGallery from "@/app/lib/components/ReturnGallery"
 
 export default async function Gallery({
         params
@@ -28,7 +29,8 @@ export default async function Gallery({
     return (
         <main className="relative w-full min-h-screen overflow-x-hidden bg-background">
             <Navbar/>
-                <div className="flex flex-col text-center mb-15 mt-17 mx-5 md:mx-15 items-center">
+                <div className="flex flex-col text-center mb-15 mt-13 mx-5 md:mx-15 items-center">
+                    <ReturnGallery/>
                     <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground w-fit px-2">
                         {gallery.name}
                     </h2>
