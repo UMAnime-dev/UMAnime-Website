@@ -96,7 +96,7 @@ export default function Home() {
               alt="UM Anime Club staff group photo"
               width={1920}
               height={1080}
-              className="h-auto w-full object-cover"
+              className="h-auto w-full object-cover border-6 border-navbar-dropdown"
               priority
             />
           </div>
@@ -117,7 +117,7 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {samples.map((sample, i) => (
               <article key={i}
-              className="overflow-hidden rounded-2xl bg-navbar-dropdown shadow-xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/25"
+              className="overflow-hidden rounded-2xl bg-navbar-dropdown shadow-xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/40"
               >
                 <div className="relative h-70 w-full">
                   <Image

@@ -12,11 +12,11 @@ export default function GalleryView({images, fullPath} : { images: string[], ful
         <>
             <div className={`fixed w-full h-full top-0 left-0 z-999 bg-black/90 ${selectedImage ? "" : "hidden"}`}>
                 <button className="fixed right-8 top-15 md:top-8 cursor-pointer" onClick={() => (setSelectedImage(null))}>
-                    <X className="scale-150"/>
+                    <X className="scale-150 text-white"/>
                 </button>
                 {selectedImage && (
                     <section className="fixed flex flex-col h-full left-1/2 -translate-x-1/2 items-center justify-center gap-20">
-                        <h1 className="font-outfit font-semibold">
+                        <h1 className="font-outfit font-semibold text-white">
                             File name: {selectedImage.split('/')[3]}
                         </h1>
                         
