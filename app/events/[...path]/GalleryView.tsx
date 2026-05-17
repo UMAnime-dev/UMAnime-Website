@@ -39,7 +39,7 @@ export default function GalleryView({images, fullPath} : { images: string[], ful
                         
                     return (
                         <button key={image} className="relative rounded-3xl border-4 w-fit h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none" onClick={() => setSelectedImage(imagePath)}>
-                            <Image src={imagePath} width={1920} height={1080} style={{ width: '1920', height: '1080' }} className={`w-full h-full object-contain`} alt={imagePath}/>
+                            <Image src={imagePath} width={1920} height={1080} style={{ width: '1920', height: '1080' }} className={`w-full h-full object-contain`} alt={imagePath} preload={true} loading="eager"/>
                         </button>
                     )
                 })}

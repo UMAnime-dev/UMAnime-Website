@@ -117,14 +117,15 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {samples.map((sample, i) => (
               <article key={i}
-              className="overflow-hidden rounded-2xl bg-navbar-dropdown shadow-xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/40"
+                className="overflow-hidden rounded-2xl bg-navbar-dropdown shadow-xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/40"
               >
                 <div className="relative h-70 w-full">
                   <Image
                     src={sample.img}
                     alt={sample.title}
-                    fill
-                    className="object-cover"
+                    width={1920}
+                    height={1080}
+                    className="object-cover w-full h-full"
                   />
                 </div>
                 <div className="flex flex-col justify-between p-6">
