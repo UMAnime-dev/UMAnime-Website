@@ -110,6 +110,6 @@ jobs:
             npm ci
             npm run build
 
-            sudo systemctl restart umanime-web
-            sudo systemctl status umanime-web --no-pager
+            sudo -n systemctl restart umanime-web
+            sudo -n systemctl status umanime-web --no-pager
           EOF
