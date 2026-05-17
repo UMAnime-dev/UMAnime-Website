@@ -3,7 +3,8 @@ name: (Preview) Release and Deploy UMAnime
 
 on:
   push:
-    branch: preview
+    branches:
+      - preview
   workflow_dispatch:
 
 jobs:
