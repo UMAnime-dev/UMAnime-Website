@@ -13,7 +13,7 @@ export default function EventGridCard({eventData}: {eventData: Event}) {
 
             {/* Date Section */}
             <section className="w-full h-50">
-                <Image src={eventData.photoUrl} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${eventData.photoOffset}]`} alt={eventData.id}/>
+                <Image src={eventData.photourl} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${eventData.photooffset}]`} alt={eventData.id}/>
             </section>
             <h1
                 className="py-6 mx-7 font-roboto font-semibold tracking-wide text-xl md:text-2xl text-center"
@@ -34,7 +34,7 @@ export default function EventGridCard({eventData}: {eventData: Event}) {
                         className="font-outfit tracking-wider text-base"
                     >
                         {
-                            eventData.startDate.toLocaleDateString("en-US", {
+                            eventData.startdate.toLocaleDateString("en-US", {
                                 weekday: "long",
                                 month: "long",
                                 day: "numeric",
@@ -52,11 +52,11 @@ export default function EventGridCard({eventData}: {eventData: Event}) {
                         className="font-outfit tracking-wider text-base"
                     >
                         {
-                            eventData.startDate.toLocaleTimeString("en-US", {
+                            eventData.startdate.toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit"
                             }) + " - " +
-                            eventData.endDate.toLocaleTimeString("en-US", {
+                            eventData.enddate.toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit"
                             })

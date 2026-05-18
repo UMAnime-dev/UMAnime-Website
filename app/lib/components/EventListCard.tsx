@@ -15,13 +15,13 @@ export default function EventListCard({eventData}: {eventData: Event}) {
                 className="min-w-50 xl:min-w-65 relative flex flex-col items-center justify-center gap-2"
             >
                 <span className="font-outfit">
-                    {eventData.startDate.toLocaleString("en-US", { weekday: "long" })}
+                    {eventData.startdate.toLocaleString("en-US", { weekday: "long" })}
                 </span>
 
                 <h1
                     className="font-outfit font-bold text-5xl"
                 >
-                    {eventData.startDate.getDate()}
+                    {eventData.startdate.getDate()}
                 </h1>
             </section>
 
@@ -44,11 +44,11 @@ export default function EventListCard({eventData}: {eventData: Event}) {
                         className="font-outfit tracking-wider text-[clamp(12px,2.35vw,14px)] lg:text-base"
                     >
                         {
-                            eventData.startDate.toLocaleTimeString("en-US", {
+                            eventData.startdate.toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit"
                             }) + " - " +
-                            eventData.endDate.toLocaleTimeString("en-US", {
+                            eventData.enddate.toLocaleTimeString("en-US", {
                                 hour: "2-digit",
                                 minute: "2-digit"
                             })

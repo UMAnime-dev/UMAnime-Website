@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model events {
+  id          String    @id
+  name        String
+  description String
+  photourl    String
+  photooffset String?   @default("0%_0%")
+  location    String
+  startdate   DateTime  @db.Timestamptz(6)
+  enddate     DateTime  @db.Timestamptz(6)
+  rsvp        String?
+  membership  Boolean?  @default(true)
+  created_at  DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime? @db.Timestamptz(6)
+}
