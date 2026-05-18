@@ -26,6 +26,13 @@
 
   --color-theme-switch: var(--theme-switch-bg);
 
+  --color-sidebar: var(--sidebar-bg);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-logout: var(--sidebar-logout);
+
+  --color-crumbs-hover: var(--admin-hover);
+  --color-admin-edit: var(--admin-edit);
+
   --font-outfit: "Outfit", sans-serif;
   --font-mono: "Roboto Mono", monospace;
   --font-roboto: "Roboto", sans-serif;
@@ -37,6 +44,7 @@
   --breakpoint-lg: 1080px;
   --breakpoint-md: 824px;
   --breakpoint-sm: 696px;
+  --breakpoint-xs: 350px;
 }
 
 .markdown-content ul {
@@ -74,6 +82,13 @@
   --gallery-hover: #f2a2c8;
 
   --theme-switch-bg: #ffa2ccc7;
+
+  --sidebar-bg: #ffe8f2;
+  --sidebar-hover: #d1d1d1;
+  --sidebar-logout: #ffdeed;
+
+  --admin-hover: #ffdeed;
+  --admin-edit: #9e93ffa2;
 }
 
 .dark {
@@ -95,4 +110,11 @@
   --gallery-hover: #ff7cb9;
 
   --theme-switch-bg: #3f3a64a4;
+
+  --sidebar-bg: #232138;
+  --sidebar-hover: #ffffff15;
+
+  --sidebar-logout: #36325e;
+  --admin-edit: #9e93ffa2;
+  --admin-hover: #685ec0a2;
 }
