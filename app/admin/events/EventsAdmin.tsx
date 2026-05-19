@@ -24,11 +24,11 @@ export default function EventsAdmin({ events }:{ events : Events }) {
 
     return (
         <>
-            <section className="flex flex-row">
-                <h1 className="font-outfit text-[clamp(16px,2.5vw,28px)] font-semibold text-foreground w-fit px-2">
+            <section className="flex flex-col gap-5 sm:flex-row items-center">
+                <h1 className="font-outfit text-2xl font-semibold text-foreground w-fit sm:px-2 text-start">
                     Events Scheduler
                 </h1>
-                <div className="flex flex-row gap-5 ml-auto">
+                <div className="flex flex-col items-center gap-2 sm:gap-5 sm:flex-row sm:ml-auto">
                     <button className={`flex items-center justify-center ${listType === "GRID" ? "gap-1" : "gap-2"} bg-eventView hover:bg-eventView-hover w-30 h-10 rounded-lg font-outfit cursor-pointer`}
                         onClick={() => {
                             if (listType === "LIST") {
@@ -77,7 +77,7 @@ export default function EventsAdmin({ events }:{ events : Events }) {
                                     className={
                                         `
                                         min-w-0 transition-[max-height,opacity] duration-600 ease-in-out ${isCollapsed ? "max-h-0 opacity-0" : "max-h-1250 opacity-100"}
-                                        ${listType === "LIST" ? "flex flex-col gap-5 items-center" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"}
+                                        ${listType === "LIST" ? "flex flex-col gap-5 items-center" : "grid grid-cols-1 sm:px-15 md:px-20 lg:px-0 lg:grid-cols-2 xl:grid-cols-4 gap-5"}
                                         `
                                     }
                                 >

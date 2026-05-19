@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, Pencil, ShieldAlert } from "lucide-react"
+import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, Pencil, Save, ShieldAlert } from "lucide-react"
 import { redirect, RedirectType } from 'next/navigation'
 
 import Image from 'next/image'
@@ -126,17 +126,17 @@ export default function EventCreate() {
             {/* Confirmation Box */}
             <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
                 <div 
-                    className="flex flex-col items-center justify-center gap-2 relative w-150 h-80 rounded-4xl bg-sidebar"
+                    className="flex flex-col items-center justify-center gap-2 relative w-70 sm:w-100 md:w-150 h-60 sm:h-70 md:h-80 rounded-4xl bg-sidebar"
                     onMouseLeave={() => setConfirm(false)}
                 >
-                    <ShieldAlert className="w-20 h-20"/>
-                    <h1 className="font-outfit text-2xl font-semibold">
+                    <ShieldAlert className="w-10 h-10 sm:w-20 sm:h-20"/>
+                    <h1 className="font-outfit text-base sm:text-2xl font-semibold">
                         Are you sure?
                     </h1>
-                    <p>
+                    <p className="text-sm sm:text-lg">
                         Do you want to create this event?
                     </p>
-                    <div className="flex flex-row justify-center items-center gap-5 mt-1.5">
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-5 mt-1.5">
                         <button 
                             className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
                             onClick={() => {
@@ -192,7 +192,7 @@ export default function EventCreate() {
             <Form action={triggerConfirmation} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
                 
                 {/* Photo Edit */}
-                <section id="cover" className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
+                <section id="cover" className="flex flex-col gap-6 border-2 rounded-xl px-5 sm:px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
                     <h1 className="w-full md:text-2xl font-bold font-outfit tracking-wider">
                         <span>
                             Cover Image
@@ -285,17 +285,17 @@ export default function EventCreate() {
                 
                 {/* Overview */}
                 <section id="overview" className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-8 pb-13 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
-                    <h1 className="flex flex-row items-center w-full font-outfit tracking-wider pr-5">
+                    <h1 className="flex flex-col gap-2 sm:flex-row items-center w-full font-outfit tracking-wider">
                         <span className='md:text-2xl font-bold'>
                             Event Overview
                         </span>
-                        <span className='ml-auto text-xs italic font-light'>
+                        <span className='sm:ml-auto text-xs italic font-light'>
                             Event ID: {eventID}
                         </span>
                     </h1>
                     
 
-                    <section className="flex flex-col gap-10 mx-5">
+                    <section className="flex flex-col gap-10 sm:mx-5">
                         <main className="flex flex-col gap-4">
                             <h2 className="font-outfit font-medium tracking-wide">
                                 Event Title
@@ -356,13 +356,13 @@ export default function EventCreate() {
                         </span>
                     </h1>
 
-                    <section className="flex flex-col gap-10 mx-5">
+                    <section className="flex flex-col gap-10 sm:mx-5">
                         <main className="flex flex-col gap-4">
                             <h2 className="font-outfit font-medium tracking-wide">
                                 Date and Time
                             </h2>
-                            <div className="flex flex-row gap-5">
-                                <div className="w-80 h-13">
+                            <div className="flex flex-col lg:flex-row gap-5 min-w-0">
+                                <div className="w-full max-w-80 h-13">
                                     <span className="flex flex-row gap-1 absolute -translate-y-2 translate-x-3.5 px-1.5 bg-sidebar text-xs font-medium">
                                         {"Date (yyyy-mm-dd)"}
                                         <p className="text-red-500">
@@ -378,40 +378,43 @@ export default function EventCreate() {
                                         className="w-full h-full border-2 rounded-xl px-3"
                                     />
                                 </div>
+                                
+                                <div className="flex flex-col xs:flex-row gap-3 xs:gap-1 sm:gap-5">
+                                     <div className="min-w-25 w-full max-w-40 h-13">
+                                        <span className="flex flex-row gap-1 absolute -translate-y-2 translate-x-3.5 px-1.5 bg-sidebar text-xs font-medium">
+                                            {"Start time"}
+                                            <p className="text-red-500">
+                                                {"*"}
+                                            </p>
+                                        </span>
+                                        <input
+                                            name="start_time" 
+                                            value={startTime}
+                                            required={true}
+                                            type="time"
+                                            onChange={(e) => setStart(e.currentTarget.value)}
+                                            className="w-full h-full border-2 rounded-xl px-3"
+                                        />
+                                    </div>
 
-                                <div className="w-40 h-13">
-                                    <span className="flex flex-row gap-1 absolute -translate-y-2 translate-x-3.5 px-1.5 bg-sidebar text-xs font-medium">
-                                        {"Start time"}
-                                        <p className="text-red-500">
-                                            {"*"}
-                                        </p>
-                                    </span>
-                                    <input
-                                        name="start_time" 
-                                        value={startTime}
-                                        required={true}
-                                        type="time"
-                                        onChange={(e) => setStart(e.currentTarget.value)}
-                                        className="w-full h-full border-2 rounded-xl px-3"
-                                    />
+                                     <div className="min-w-25 w-full max-w-40 h-13">
+                                        <span className="flex flex-row gap-1 absolute -translate-y-2 translate-x-3.5 px-1.5 bg-sidebar text-xs font-medium">
+                                            {"End time"}
+                                            <p className="text-red-500">
+                                                {"*"}
+                                            </p>
+                                        </span>
+                                        <input
+                                            name="end_time" 
+                                            value={endTime}
+                                            required={true}
+                                            type="time"
+                                            onChange={(e) => setEnd(e.currentTarget.value)}
+                                            className="w-full h-full border-2 rounded-xl px-3"
+                                        />
+                                    </div>
                                 </div>
-
-                                <div className="w-40 h-13">
-                                    <span className="flex flex-row gap-1 absolute -translate-y-2 translate-x-3.5 px-1.5 bg-sidebar text-xs font-medium">
-                                        {"End time"}
-                                        <p className="text-red-500">
-                                            {"*"}
-                                        </p>
-                                    </span>
-                                    <input
-                                        name="end_time" 
-                                        value={endTime}
-                                        required={true}
-                                        type="time"
-                                        onChange={(e) => setEnd(e.currentTarget.value)}
-                                        className="w-full h-full border-2 rounded-xl px-3"
-                                    />
-                                </div>
+                                
                             </div>
                         </main>
 
@@ -450,7 +453,7 @@ export default function EventCreate() {
                         </span>
                     </h1>
 
-                    <section className="flex flex-col gap-7 mx-5">
+                    <section className="flex flex-col gap-7 sm:mx-5">
                         <main className="flex flex-col gap-4">
                             <div className="flex flex-row gap-1">
                                 <h2 id="membership" className="font-outfit font-medium tracking-wide">
@@ -460,35 +463,35 @@ export default function EventCreate() {
                                     {"*"}
                                 </p>
                             </div>
-                            <div className="flex flex-row gap-5">
+                            <div className="flex flex-col sm:flex-row gap-5">
                                 <button 
                                     id="btn_member_req"
                                     type="button"
-                                    className={`${membership ? "outline-2 outline-solid" : ""} flex flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
+                                    className={`${membership ? "outline-2 outline-solid" : ""} flex flex-col items-center text-xs sm:text-sm lg:text-base lg:flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
                                     onClick={() => setMembership(true)}
                                 >
                                     <BookCheck />
                                     Membership Required
                                     {
                                         membership ?
-                                            <CircleDot className="ml-5" />
+                                            <CircleDot className="lg:ml-5" />
                                         :
-                                            <CircleDashed className="ml-5"/>
+                                            <CircleDashed className="lg:ml-5"/>
                                     }
                                 </button>
                                 <button 
                                     id="btn_member_notreq"
                                     type="button"
-                                    className={`${membership ? "" : "outline-2 outline-solid"} flex flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
+                                    className={`${membership ? "" : "outline-2 outline-solid"} flex flex-col items-center text-xs sm:text-sm lg:text-base lg:flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
                                     onClick={() => setMembership(false)}
                                 >
                                     <BookX />
                                     No Membership Required
                                     {
                                         membership ?
-                                            <CircleDashed className="ml-5"/>
+                                            <CircleDashed className="lg:ml-5"/>
                                         :
-                                            <CircleDot className="ml-5" />
+                                            <CircleDot className="lg:ml-5" />
                                     }
                                 </button>
                            </div>
@@ -501,49 +504,49 @@ export default function EventCreate() {
                             <p className="font-outfit font-light">
                                 How do you want others to make reservation??
                             </p>
-                            <div className="flex flex-row gap-5">
+                            <div className="flex flex-col sm:flex-row gap-5">
                                 <button 
                                     id="btn_rsvp_none" 
                                     type="button"
-                                    className={`${rsvpType === "NONE" ? "outline-2 outline-solid" : ""} flex flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
+                                    className={`${rsvpType === "NONE" ? "outline-2 outline-solid" : ""} flex flex-col items-center text-xs sm:text-sm lg:text-base lg:flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
                                     onClick={() => setRSVPType('NONE')}
                                 >
                                     <Ban />
                                     No Reservations
                                     {
                                         rsvpType === "NONE" ?
-                                            <CircleDot className="ml-5" />
+                                            <CircleDot className="lg:ml-5" />
                                         :
-                                            <CircleDashed className="ml-5"/>
+                                            <CircleDashed className="lg:ml-5"/>
                                     }
                                 </button>
                                 <button 
                                     id="btn_rsvp_external" 
                                     type="button"
-                                    className={`${rsvpType === "EXTERNAL" ? "outline-2 outline-solid" : ""} flex flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
+                                    className={`${rsvpType === "EXTERNAL" ? "outline-2 outline-solid" : ""} flex flex-col items-center text-xs sm:text-sm lg:text-base lg:flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-pointer bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
                                     onClick={() => setRSVPType('EXTERNAL')}
                                 >
                                     <Link />
                                     External Link System
                                     {
                                         rsvpType === "EXTERNAL" ?
-                                            <CircleDot className="ml-5" />
+                                            <CircleDot className="lg:ml-5" />
                                         :
-                                            <CircleDashed className="ml-5"/>
+                                            <CircleDashed className="lg:ml-5"/>
                                     }
                                 </button>
                                 <button 
                                     id="btn_rsvp_internal"
                                     type="button"
-                                    className={`${rsvpType === "SYSTEM" ? "" : ""} opacity-60 flex flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-not-allowed bg-sidebar-hover`}
+                                    className={`${rsvpType === "SYSTEM" ? "" : ""} opacity-60 flex flex-col items-center text-xs sm:text-sm lg:text-base lg:flex-row gap-2 font-outfit font-medium p-3 rounded-2xl cursor-not-allowed bg-sidebar-hover shadow-2xl/30 hover:shadow-foreground`}
                                 >
                                     <HardDriveDownload />
                                     Internal Reservation System
                                     {
                                         rsvpType ?
-                                            <CircleDashed className="ml-5"/>
+                                            <CircleDashed className="lg:ml-5"/>
                                         :
-                                            <CircleDot className="ml-5" />
+                                            <CircleDot className="lg:ml-5" />
                                     }
                                 </button>
                            </div>
@@ -582,8 +585,9 @@ export default function EventCreate() {
                 <section className="w-full flex items-center justify-center">
                     <button 
                         type="submit"
-                        className={`mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-40 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover bg-sidebar-logout`}
-                    >
+                        className={`mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-100 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover bg-sidebar-logout`}
+                    >   
+                        <Save />
                         Save Changes
                     </button>
                 </section>

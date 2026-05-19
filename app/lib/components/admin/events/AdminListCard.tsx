@@ -10,7 +10,7 @@ export default function AdminEventListCard({eventData}: {eventData: Event}) {
 
     return (
         <main
-            className="cursor-pointer relative gap-2 w-full md:max-w-none max-w-120 overflow-x-hidden bg-eventCard rounded-xl flex md:flex-row flex-col items-center py-5 md:py-2.5 shadow-black shadow-2xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/25"
+            className="cursor-pointer relative gap-2 w-full lg:max-w-none max-w-120 overflow-x-hidden bg-eventCard rounded-xl flex lg:flex-row flex-col items-center py-5 lg:py-2.5 shadow-black shadow-2xl transition hover:scale-[1.02] hover:shadow-2xl/100 hover:shadow-foreground/25"
             onClick={() => {redirect(configLoc, RedirectType.push)}}
         >
             <SquareArrowOutUpRight className="absolute top-2.5 right-2.5 scale-80 text-foreground"/>
@@ -31,14 +31,14 @@ export default function AdminEventListCard({eventData}: {eventData: Event}) {
             </section>
 
             <h1
-                className="md:hidden! py-2 mx-7 font-roboto font-semibold tracking-wide text-[clamp(14px,2.35vw,24px)]"
+                className="lg:hidden! py-2 mx-7 font-roboto font-semibold tracking-wide text-[clamp(14px,2.35vw,24px)]"
             >
                 {eventData.name}
             </h1>
 
             {/* Event Details Section */}
             <section
-                className="relative w-full md:w-100 lg:w-120 2xl:w-140 px-5 md:px-0 md:flex md:flex-col items-start justify-center gap-3 md:py-3 grid grid-cols-1"
+                className="relative w-full lg:w-100 2xl:w-140 px-5 lg:px-0 lg:flex lg:flex-col items-start justify-center gap-3 lg:py-3 grid grid-cols-1"
             >
                 <div
                     className="flex flex-row justify-center items-center gap-2"
@@ -62,7 +62,7 @@ export default function AdminEventListCard({eventData}: {eventData: Event}) {
                 </div>
 
                 <h1
-                    className="hidden md:block! mx-7 font-roboto font-semibold tracking-wide text-[clamp(14px,2.35vw,24px)] lg:text-3xl"
+                    className="hidden lg:block! mx-7 font-roboto font-semibold tracking-wide text-[clamp(14px,2.35vw,24px)] lg:text-3xl"
                 >
                     {eventData.name}
                 </h1>
@@ -82,7 +82,7 @@ export default function AdminEventListCard({eventData}: {eventData: Event}) {
 
             {/* RSVP */}
             <section
-                className="w-full md:w-90 flex flex-col items-center justify-end gap-3 md:my-5 md:ml-auto md:mt-auto"
+                className="w-full lg:w-90 flex flex-col items-center justify-end gap-3 lg:my-5 lg:ml-auto lg:mt-auto"
             >
                 <div
                     className="w-full flex flex-row items-center justify-center gap-2"

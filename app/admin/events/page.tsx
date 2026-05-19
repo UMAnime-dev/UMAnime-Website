@@ -11,7 +11,7 @@ export default async function EventsPanel() {
     const events = await EventsSchema.safeParseAsync(db_result)
 
     return (
-        <main className="flex flex-col bg-sidebar w-full min-h-fit ml-3 md:ml-5 mr-4 my-8 rounded-2xl py-8 px-15">
+        <main className="flex flex-col bg-sidebar w-full min-h-fit ml-3 md:ml-5 mr-4 my-8 rounded-2xl py-8 px-5 sm:px-15">
             {
                 events.success == false ? 
                     <DatabaseError/> 

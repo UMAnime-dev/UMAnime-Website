@@ -32,17 +32,17 @@ export default function EventPreview({event} : {event : Event}) {
             {/* Confirmation Box */}
             <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
                 <div 
-                    className="flex flex-col items-center justify-center gap-2 relative w-150 h-80 rounded-4xl bg-sidebar"
+                    className="flex flex-col items-center justify-center gap-2 relative w-70 sm:w-100 md:w-150 h-60 sm:h-70 md:h-80 rounded-4xl bg-sidebar"
                     onMouseLeave={() => setConfirm(false)}
                 >
-                    <ShieldAlert className="w-20 h-20"/>
-                    <h1 className="font-outfit text-2xl font-semibold">
+                    <ShieldAlert className="w-10 h-10 sm:w-20 sm:h-20"/>
+                    <h1 className="font-outfit text-base sm:text-2xl font-semibold">
                         Are you sure?
                     </h1>
-                    <p>
+                    <p className="text-sm sm:text-lg">
                         Do you want to delete this event?
                     </p>
-                    <div className="flex flex-row justify-center items-center gap-5 mt-1.5">
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-5 mt-1.5">
                         <button 
                             className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
                             onClick={() => {
@@ -67,39 +67,49 @@ export default function EventPreview({event} : {event : Event}) {
                 </div>
             </div>
 
-            <div 
-                className={`flex flex-row items-center gap-1.5 font-outfit font-medium py-3 px-5 rounded-2xl bg-sidebar-hover min-w-0 max-w-full overflow-hidden`}
+            <div
+                className="flex items-center gap-1.5 font-outfit font-medium py-3 px-5 rounded-2xl bg-sidebar-hover min-w-0 w-full overflow-hidden"
             >
-                <div className="flex border-r-2 border-[#6e6e6e] pr-3">
-                    <ArrowLeft className="cursor-pointer" onClick={() => redirect(scheduler, RedirectType.push)}/>
+                <div className="flex border-r-2 border-[#6e6e6e] pr-3 shrink-0">
+                    <ArrowLeft className="cursor-pointer"
+                        onClick={() => redirect(scheduler, RedirectType.push)}
+                    />
                 </div>
-                <button 
-                    className="flex gap-2 text-foreground ml-1 p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover max-w-10 md:max-w-none"
-                    onClick={() => redirect(scheduler, RedirectType.push)}
-                >
-                    <CalendarClock className="md:block hidden"/>
-                    <span className="truncate flex-1 min-w-0">
-                        Event Scheduler
-                    </span>
-                </button>
-                <ChevronRight className="shrink-0"/>
-                <button 
-                    className="flex gap-2 text-foreground p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover"
-                    onClick={() => redirect(current, RedirectType.push)}
-                >
-                    <SquareChartGantt />
-                    <span className="truncate flex-1 min-w-0">
-                        {event.name}
-                    </span>
-                </button>
-                <div className="fixed bottom-4 left-4 md:ml-auto md:static flex flex-col md:flex-row gap-5">
-                    <button 
+
+                {/* Breadcrumbs section */}
+                <div className="flex items-center gap-1.5 min-w-0 flex-1 overflow-hidden">
+                    <button className="flex gap-2 text-foreground ml-1 p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover shrink-0"
+                        onClick={() => redirect(scheduler, RedirectType.push)}
+                    >
+                        <CalendarClock className="md:block hidden" />
+                        <span className="truncate">
+                            Event Scheduler
+                        </span>
+                    </button>
+
+                    <ChevronRight className="shrink-0" />
+
+                    <button className="flex gap-2 text-foreground p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover min-w-0 overflow-hidden"
+                        onClick={() => redirect(current, RedirectType.push)}
+                    >
+                        <SquareChartGantt className="shrink-0" />
+
+                        <span className="truncate min-w-0">
+                            {event.name}
+                        </span>
+                    </button>
+                </div>
+
+                {/* Actions */}
+                <div className="fixed bottom-4 left-4 md:static md:ml-3 flex flex-col md:flex-row gap-4 md:gap-3 shrink-0">
+                    <button
                         className="md:flex p-1.25 rounded-full cursor-pointer outline-2 outline-solid outline-foreground bg-admin-edit hover:bg-crumbs-hover"
                         onClick={() => redirect(edit, RedirectType.push)}
                     >
                         <Settings />
                     </button>
-                    <button 
+
+                    <button
                         className="md:flex p-1.25 rounded-full cursor-pointer outline-2 outline-solid outline-foreground bg-red-500 opacity-80 md:opacity-100 hover:bg-red-800"
                         onClick={() => setConfirm(true)}
                     >
@@ -109,7 +119,7 @@ export default function EventPreview({event} : {event : Event}) {
             </div>
 
             <div className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-2">
-                <section className="flex relative w-full h-100 max-h-100 overflow-hidden border-3 border-foreground">
+                <section className="flex relative w-full h-100 max-h-100 overflow-hidden border-3 border-foreground rounded-xl">
                     <div 
                         className="absolute inset-0 bg-cover bg-center blur-xl z-0" 
                         style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${event.photourl})` }}
