@@ -59,7 +59,7 @@ export default function EventModify({event} : {event : Event}) {
         const object = await EventSchema.safeParseAsync({
             id: event.id,
             name: title,
-            photourl: uploadImage ? uploadImage.name : coverImage,
+            photourl: uploadImage != null ? uploadImage.name : coverImage,
             photooffset: event.photooffset,
             description: description,
             location: location,
