@@ -7,7 +7,7 @@ import { redirect, RedirectType } from "next/navigation"
 import Image from "next/image";
 
 import Form from 'next/form'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { sendUpdate } from "./page";
 
 export default function EventModify({event} : {event : Event}) {
@@ -59,7 +59,7 @@ export default function EventModify({event} : {event : Event}) {
         const object = await EventSchema.safeParseAsync({
             id: event.id,
             name: title,
-            photourl: coverImage,
+            photourl: uploadImage ? uploadImage.name : coverImage,
             photooffset: event.photooffset,
             description: description,
             location: location,
@@ -73,6 +73,10 @@ export default function EventModify({event} : {event : Event}) {
         
         if (object.success) {
             const result = await sendUpdate(event.id, object.data)
+            
+            if (uploadImage != null) {
+                await uploadHandler()
+            }
 
             if (result) {
                 redirect(preview, RedirectType.replace)
@@ -81,10 +85,14 @@ export default function EventModify({event} : {event : Event}) {
         
     }
 
-    const uploadHandler = async (file : File) => {
+    const uploadHandler = async () => {
 
+        if (uploadImage == null) {
+            return
+        }
+        
         const formData = new FormData();
-        formData.append("image", file);
+        formData.append("image", uploadImage);
         formData.append("purpose", "event")
 
         const response = await fetch("/api/upload", {
@@ -92,10 +100,18 @@ export default function EventModify({event} : {event : Event}) {
             body: formData,
         });
 
-        const data = await response.json();
-
-        console.log(data)
+        await response.json();
     }
+
+    useEffect(() => {
+        const handleBeforeUnload = (e : BeforeUnloadEvent) => {
+        e.preventDefault() 
+        e.returnValue = true 
+        }
+
+        window.addEventListener('beforeunload', handleBeforeUnload)
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+    }, [])
 
     return (
         <main className="flex flex-col bg-sidebar flex-1 min-w-0 min-h-fit ml-4 md:ml-6 mr-4 my-8 rounded-2xl px-3 md:px-7 py-7 gap-10">
@@ -159,11 +175,11 @@ export default function EventModify({event} : {event : Event}) {
                     >
                         <div 
                             className="absolute inset-0 bg-cover bg-center blur-xl z-0" 
-                            style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage})` }}
+                            style={{ backgroundImage: uploadImage ? `url(${coverImage})` : `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage})` }}
                         />
                         <div className="relative w-full h-full z-10 flex items-center justify-center">
                             <Image 
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage}`} 
+                                src={uploadImage ? `${coverImage}` : `${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage}` }
                                 width={1920} 
                                 height={1080} 
                                 className={`w-full h-full object-contain`}
@@ -181,8 +197,8 @@ export default function EventModify({event} : {event : Event}) {
                                         const file = e.currentTarget.files?.[0];
                                         if (!file) return;
 
-                                        setUploadImage(file);
-                                        await uploadHandler(file);
+                                        setCoverImage(URL.createObjectURL(file))
+                                        setUploadImage(file)
                                     }}
                                 />
                                 <button
