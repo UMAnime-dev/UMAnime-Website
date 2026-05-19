@@ -1,4 +1,4 @@
-"use server"
+export const dynamic = 'force-dynamic'
 
 import { getEventById } from "@/app/lib/scripts/EventPostgres"
 import { redirect, RedirectType } from "next/navigation"

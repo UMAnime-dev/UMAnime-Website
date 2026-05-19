@@ -1,4 +1,4 @@
-"use server"
+export const dynamic = 'force-dynamic'
 
 import { EventsSchema } from "@/data/schedule/EventSchema"
 import EventsAdmin from "./EventsAdmin"

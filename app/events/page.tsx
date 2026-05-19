@@ -1,4 +1,4 @@
-"use server"
+export const dynamic = 'force-dynamic'
 
 import Footer from "@/app/lib/components/footer"
 import Navbar from "@/app/lib/components/navbar"
