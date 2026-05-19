@@ -61,7 +61,7 @@ export default function EventModify({event} : {event : Event}) {
         const object = await EventSchema.safeParseAsync({
             id: event.id,
             name: title,
-            photourl: uploadImage != null ? fileName: coverImage,
+            photourl: uploadImage != null ? fileName : coverImage,
             photooffset: event.photooffset,
             description: description,
             location: location,
@@ -90,7 +90,7 @@ export default function EventModify({event} : {event : Event}) {
         }
         
         const formData = new FormData();
-        const fileName = String(Date.now())
+        const fileName = String(Date.now()) + ".webp"
         formData.append("name", fileName)
         formData.append("image", uploadImage);
         formData.append("purpose", "event")
@@ -102,7 +102,7 @@ export default function EventModify({event} : {event : Event}) {
 
         await response.json();
 
-        return `${fileName}.webp`
+        return fileName
     }
 
     useEffect(() => {
