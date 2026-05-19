@@ -7,7 +7,7 @@ import { redirect, RedirectType } from "next/navigation"
 import Image from "next/image";
 
 import Form from 'next/form'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { sendUpdate } from "./page";
 
 export default function EventModify({event} : {event : Event}) {
@@ -19,9 +19,11 @@ export default function EventModify({event} : {event : Event}) {
 
     // UI
     const [coverHover, setCoverHover] = useState(false)
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
 
     // Data
     const [coverImage, setCoverImage] = useState<string>(event.photourl)
+    const [uploadImage, setUploadImage] = useState<File | null>(null);
     const [title, setTitle] = useState<string>(event.name)
     const [description, setDescription] = useState<string>(event.description)
     const [date, setDate] = useState<Date>(event.startdate)
@@ -40,7 +42,6 @@ export default function EventModify({event} : {event : Event}) {
     const [rsvpType, setRSVPType] = useState<"EXTERNAL" | "SYSTEM" | "NONE">("NONE")
     const [rsvpExternal, setRSVPExternal] = useState<string>(event.rsvp ? event.rsvp : "")
 
-    // Functions
     const validate = async () => {
         
         const startDate = new Date(date)
@@ -78,6 +79,22 @@ export default function EventModify({event} : {event : Event}) {
             }
         }
         
+    }
+
+    const uploadHandler = async (file : File) => {
+
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("purpose", "event")
+
+        const response = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        console.log(data)
     }
 
     return (
@@ -142,11 +159,11 @@ export default function EventModify({event} : {event : Event}) {
                     >
                         <div 
                             className="absolute inset-0 bg-cover bg-center blur-xl z-0" 
-                            style={{ backgroundImage: `url(${coverImage})` }}
+                            style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage})` }}
                         />
                         <div className="relative w-full h-full z-10 flex items-center justify-center">
                             <Image 
-                                src={coverImage} 
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage}`} 
                                 width={1920} 
                                 height={1080} 
                                 className={`w-full h-full object-contain`}
@@ -154,11 +171,25 @@ export default function EventModify({event} : {event : Event}) {
                             />
 
                             <div className={`absolute flex items-center justify-center w-full h-full bg-black/50 ${coverHover ? "" : "hidden"}`}>
+                                <input 
+                                    type="file"
+                                    accept="image/*"
+                                    ref={fileInputRef}
+                                    className="hidden"
+                                    max={1}
+                                    onChange={async (e) => {
+                                        const file = e.currentTarget.files?.[0];
+                                        if (!file) return;
+
+                                        setUploadImage(file);
+                                        await uploadHandler(file);
+                                    }}
+                                />
                                 <button
                                     type="button"
                                     className={`flex items-center justify-center bg-background hover:bg-navbar w-17 h-17 rounded-full cursor-pointer`}
                                     onClick={() => {
-                                        setCoverImage('/eventSamples/festival.jpg')
+                                        fileInputRef.current?.click()
                                     }}
                                 >
                                     <Pencil className="scale-110 text-foreground"/>

@@ -1,4 +1,4 @@
-import { EventsSchema, Event, EventNoID } from "@/data/schedule/EventSchema"
+import { EventsSchema, Event } from "@/data/schedule/EventSchema"
 import { prisma } from "@/lib/prisma"
 
 export async function getEvents() {

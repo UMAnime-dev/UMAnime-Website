@@ -52,11 +52,11 @@ export default function EventPreview({event} : {event : Event}) {
                 <section className="flex relative w-full h-100 max-h-100 overflow-hidden border-3 border-foreground">
                     <div 
                         className="absolute inset-0 bg-cover bg-center blur-xl z-0" 
-                        style={{ backgroundImage: `url(${event.photourl})` }}
+                        style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${event.photourl})` }}
                     />
                     <div className="relative w-full h-full z-10 flex items-center justify-center">
                         <Image 
-                            src={event.photourl} 
+                            src={`${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${event.photourl}`} 
                             width={1920} 
                             height={1080} 
                             className={`w-full h-full object-contain`}
