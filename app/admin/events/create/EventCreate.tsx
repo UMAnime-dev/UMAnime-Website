@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleDashed, CircleDot, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, Pencil } from "lucide-react"
+import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, Pencil, ShieldAlert } from "lucide-react"
 import { redirect, RedirectType } from 'next/navigation'
 
 import Image from 'next/image'
@@ -19,6 +19,7 @@ export default function EventCreate() {
     // UI
     const [coverHover, setCoverHover] = useState(false)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
+    const [confirm, setConfirm] = useState<boolean>(false)
     
     // Data
     const [coverImage, setCoverImage] = useState<string>('icebreaker.jpg')
@@ -36,6 +37,10 @@ export default function EventCreate() {
     const [membership, setMembership] = useState<boolean>(true)
     const [rsvpType, setRSVPType] = useState<"EXTERNAL" | "SYSTEM" | "NONE">("NONE")
     const [rsvpExternal, setRSVPExternal] = useState<string>("")
+
+    const triggerConfirmation = () => {
+        setConfirm(true)
+    }
 
     const validate = async () => {
         if (!uploadImage) {
@@ -117,6 +122,46 @@ export default function EventCreate() {
 
     return (
         <main className="flex flex-col bg-sidebar flex-1 min-w-0 min-h-fit ml-4 md:ml-6 mr-4 my-8 rounded-2xl px-3 md:px-7 py-7 gap-10">
+
+            {/* Confirmation Box */}
+            <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
+                <div 
+                    className="flex flex-col items-center justify-center gap-2 relative w-150 h-80 rounded-4xl bg-sidebar"
+                    onMouseLeave={() => setConfirm(false)}
+                >
+                    <ShieldAlert className="w-20 h-20"/>
+                    <h1 className="font-outfit text-2xl font-semibold">
+                        Are you sure?
+                    </h1>
+                    <p>
+                        Do you want to create this event?
+                    </p>
+                    <div className="flex flex-row justify-center items-center gap-5 mt-1.5">
+                        <button 
+                            className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
+                            onClick={() => {
+                                validate()
+                            }}
+                        >
+                            <CircleCheck />
+                            <span className="truncate flex-1 min-w-0">
+                                Confirm
+                            </span>
+                        </button>
+                        <button 
+                            className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
+                            onClick={() => setConfirm(false)}
+                        >
+                            <CircleX />
+                            <span className="truncate flex-1 min-w-0">
+                                Cancel
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
             <div 
                 className={`flex flex-row items-center gap-1.5 font-outfit font-medium py-3 px-5 rounded-2xl bg-sidebar-hover min-w-0 max-w-full overflow-hidden`}
             >
@@ -144,7 +189,7 @@ export default function EventCreate() {
                 </button>
             </div>
 
-            <Form action={validate} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
+            <Form action={triggerConfirmation} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
                 
                 {/* Photo Edit */}
                 <section id="cover" className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">

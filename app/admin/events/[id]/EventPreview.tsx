@@ -42,7 +42,7 @@ export default function EventPreview({event} : {event : Event}) {
                     <p>
                         Do you want to delete this event?
                     </p>
-                    <div className="flex flex-row justify-center items-center gap-5">
+                    <div className="flex flex-row justify-center items-center gap-5 mt-1.5">
                         <button 
                             className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
                             onClick={() => {

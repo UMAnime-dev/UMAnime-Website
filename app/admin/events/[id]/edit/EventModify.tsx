@@ -1,7 +1,7 @@
 "use client"
 
 import { Event, EventSchema } from "@/data/schedule/EventSchema"
-import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleDashed, CircleDot, HardDriveDownload, Link, Pencil, Settings, SquareChartGantt } from "lucide-react"
+import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, HardDriveDownload, Link, Pencil, Settings, ShieldAlert, SquareChartGantt } from "lucide-react"
 import { redirect, RedirectType } from "next/navigation"
 
 import Image from "next/image";
@@ -20,6 +20,7 @@ export default function EventModify({event} : {event : Event}) {
     // UI
     const [coverHover, setCoverHover] = useState(false)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
+    const [confirm, setConfirm] = useState<boolean>(false)
 
     // Data
     const [coverImage, setCoverImage] = useState<string>(event.photourl)
@@ -43,6 +44,10 @@ export default function EventModify({event} : {event : Event}) {
     const [membership, setMembership] = useState<boolean>(event.membership)
     const [rsvpType, setRSVPType] = useState<"EXTERNAL" | "SYSTEM" | "NONE">("NONE")
     const [rsvpExternal, setRSVPExternal] = useState<string>(event.rsvp ? event.rsvp : "")
+
+    const triggerConfirmation = () => {
+        setConfirm(true)
+    }
 
     const validate = async () => {
         
@@ -155,8 +160,46 @@ export default function EventModify({event} : {event : Event}) {
                     </span>
                 </button>
             </div>
+
+            {/* Confirmation Box */}
+            <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
+                <div 
+                    className="flex flex-col items-center justify-center gap-2 relative w-150 h-80 rounded-4xl bg-sidebar"
+                    onMouseLeave={() => setConfirm(false)}
+                >
+                    <ShieldAlert className="w-20 h-20"/>
+                    <h1 className="font-outfit text-2xl font-semibold">
+                        Are you sure?
+                    </h1>
+                    <p>
+                        Do you want to update this event?
+                    </p>
+                    <div className="flex flex-row justify-center items-center gap-5 mt-1.5">
+                        <button 
+                            className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
+                            onClick={() => {
+                                validate()
+                            }}
+                        >
+                            <CircleCheck />
+                            <span className="truncate flex-1 min-w-0">
+                                Confirm
+                            </span>
+                        </button>
+                        <button 
+                            className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
+                            onClick={() => setConfirm(false)}
+                        >
+                            <CircleX />
+                            <span className="truncate flex-1 min-w-0">
+                                Cancel
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             
-            <Form action={validate} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
+            <Form action={triggerConfirmation} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
 
                 {/* Photo Edit */}
                 <section className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
