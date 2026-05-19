@@ -66,8 +66,8 @@ export default function EventsView({ events }:{ events : Events }) {
                                 <div
                                     className={
                                         `
-                                        transition-[max-height,opacity] duration-600 ease-in-out ${isCollapsed ? "max-h-0 opacity-0" : "max-h-1250 opacity-100"}
-                                        ${listType === "LIST" ? "flex flex-col gap-5 items-center" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(3,380px)] gap-5"}
+                                        min-w-0 transition-[max-height,opacity] duration-600 ease-in-out ${isCollapsed ? "max-h-0 opacity-0" : "max-h-1250 opacity-100"}
+                                        ${listType === "LIST" ? "flex flex-col gap-5 items-center" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"}
                                         `
                                     }
                                 >
