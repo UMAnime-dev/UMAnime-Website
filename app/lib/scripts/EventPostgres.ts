@@ -1,5 +1,6 @@
 import postgres from 'postgres'
 import { Event, EventSchema } from "@/data/schedule/EventSchema"
+import { unstable_noStore as noStore } from 'next/cache'
 
 const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
 
@@ -29,6 +30,7 @@ export async function getEventById(id : string) : Promise<null | Event> {
 }
 
 export async function updateEvent(id : string, event : Event) {
+    noStore()
     const sql_result = await sql`
         update public.events
         set 
