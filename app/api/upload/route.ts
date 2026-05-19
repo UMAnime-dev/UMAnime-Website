@@ -9,6 +9,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024;
 export async function POST(req: Request) {
     try {
         const formData = await req.formData();
+        const fileName = formData.get('name') as string;
         const file = formData.get('image') as File | null;
         const purpose = formData.get('purpose') as string | null;
 
@@ -52,7 +53,6 @@ export async function POST(req: Request) {
             const buffer = Buffer.from(fileBytes)
 
             const uploadDir = process.env.IMAGE_UPLOAD_DIRECTORY!;
-            const fileName = `${Date.now()}.webp`
             const uploadPath = path.join(uploadDir, fileName)
 
             await sharp(buffer).resize({
