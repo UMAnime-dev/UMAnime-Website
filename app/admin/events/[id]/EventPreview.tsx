@@ -71,9 +71,17 @@ export default function EventPreview({event} : {event : Event}) {
                 <h1 className="w-full md:text-2xl lg:text-4xl text-center font-bold font-outfit tracking-wider">
                     {event.name}
                 </h1>
-                <h2 className="w-full text-center font-outfit tracking-wider">
+                <h2 className="w-full text-center font-outfit tracking-wider text-sm">
                     Published on {event.created_at.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </h2>
+                {
+                    event.updated_at ?
+                        <h2 className="w-full text-center font-outfit tracking-wider text-xs italic">
+                            Updated on {event.updated_at.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        </h2>
+                    :
+                        <></>
+                }
                 <p className="w-full flex gap-1 justify-center font-outfit tracking-wider mt-4 overflow-hidden">
                     <span className="shrink-0">Description:</span>
                     <span className="min-w-0 truncate font-light">

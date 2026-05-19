@@ -19,3 +19,4 @@ export const EventsSchema = z.array(EventSchema);
 
 export type Event = z.infer<typeof EventSchema>;
 export type Events = z.infer<typeof EventsSchema>;
+export type EventNoID = Omit<z.infer<typeof EventSchema>, 'id'>

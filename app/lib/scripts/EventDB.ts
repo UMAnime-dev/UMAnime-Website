@@ -1,4 +1,4 @@
-import { EventsSchema, Event } from "@/data/schedule/EventSchema"
+import { EventsSchema, Event, EventNoID } from "@/data/schedule/EventSchema"
 import { prisma } from "@/lib/prisma"
 
 export async function getEvents() {
@@ -26,4 +26,11 @@ export async function getEventById(id : string) : Promise<null | Event> {
     }
 
     return selected
+}
+
+export async function updateEvent(id : string, event : Event) {
+    return await prisma.events.update({
+        where: { id: id },
+        data: event
+    })
 }
