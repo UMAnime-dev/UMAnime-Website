@@ -1,6 +1,6 @@
 "use server"
 
-import { getEventById, updateEvent } from "@/app/lib/scripts/EventDB"
+import { getEventById, updateEvent } from "@/app/lib/scripts/EventPostgres"
 import { Event } from "@/data/schedule/EventSchema"
 import EventModify from "./EventModify"
 import { redirect, RedirectType } from "next/navigation"

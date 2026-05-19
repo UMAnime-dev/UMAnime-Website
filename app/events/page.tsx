@@ -6,7 +6,7 @@ import Navbar from "@/app/lib/components/navbar"
 import EventsView from "./EventsView"
 import GalleryPort from "./GalleryPort"
 
-import { getEvents } from "@/app/lib/scripts/EventDB"
+import { getAllEvents } from "@/app/lib/scripts/EventPostgres"
 import { EventsSchema } from "@/data/schedule/EventSchema"
 
 import EmptyEvents from "@/app/lib/fillers/EmptyEvents"
@@ -14,7 +14,7 @@ import DatabaseError from "@/app/lib/fillers/DatabaseError"
 
 export default async function EventPage() {
 
-    const db_result = await getEvents()
+    const db_result = await getAllEvents()
 
     const events = await EventsSchema.safeParseAsync(db_result)
 

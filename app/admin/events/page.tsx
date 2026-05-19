@@ -1,12 +1,12 @@
 "use server"
 
-import { getEvents } from "@/app/lib/scripts/EventDB"
 import { EventsSchema } from "@/data/schedule/EventSchema"
 import EventsAdmin from "./EventsAdmin"
 import DatabaseError from "@/app/lib/fillers/DatabaseError"
+import { getAllEvents } from "@/app/lib/scripts/EventPostgres"
 
 export default async function EventsPanel() {
-    const db_result = await getEvents()
+    const db_result = await getAllEvents()
     
     const events = await EventsSchema.safeParseAsync(db_result)
 
