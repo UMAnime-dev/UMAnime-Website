@@ -1,11 +1,13 @@
 "use client"
 
 import { Event } from "@/data/schedule/EventSchema";
-import { ArrowLeft, CalendarClock, ChevronRight, ExternalLink, Settings, SquareChartGantt } from 'lucide-react'
+import { ArrowLeft, CalendarClock, ChevronRight, CircleCheck, CircleX, ExternalLink, Settings, ShieldAlert, SquareChartGantt, Trash2 } from 'lucide-react'
 import { redirect, RedirectType } from 'next/navigation'
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { sendDelete } from "@/app/admin/events/actions";
 
 export default function EventPreview({event} : {event : Event}) {
 
@@ -13,8 +15,58 @@ export default function EventPreview({event} : {event : Event}) {
     const current = `/admin/events/${event.id}`
     const edit = `/admin/events/${event.id}/edit`
 
+    const [confirm, setConfirm] = useState<boolean>(false)
+
+    const deleteEvent = async () => {
+        const result = await sendDelete(event.id)
+
+        if (result) {
+            redirect(scheduler, RedirectType.replace)
+        }
+        setConfirm(false)
+    }
+
     return (
         <main className="flex flex-col bg-sidebar flex-1 min-w-0 min-h-fit ml-4 md:ml-6 mr-4 my-8 rounded-2xl px-3 md:px-7 py-7 gap-10">
+
+            {/* Confirmation Box */}
+            <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
+                <div 
+                    className="flex flex-col items-center justify-center gap-2 relative w-150 h-80 rounded-4xl bg-sidebar"
+                    onMouseLeave={() => setConfirm(false)}
+                >
+                    <ShieldAlert className="w-20 h-20"/>
+                    <h1 className="font-outfit text-2xl font-semibold">
+                        Are you sure?
+                    </h1>
+                    <p>
+                        Do you want to delete this event?
+                    </p>
+                    <div className="flex flex-row justify-center items-center gap-5">
+                        <button 
+                            className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
+                            onClick={() => {
+                                deleteEvent()
+                            }}
+                        >
+                            <CircleCheck />
+                            <span className="truncate flex-1 min-w-0">
+                                Confirm
+                            </span>
+                        </button>
+                        <button 
+                            className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
+                            onClick={() => setConfirm(false)}
+                        >
+                            <CircleX />
+                            <span className="truncate flex-1 min-w-0">
+                                Cancel
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div 
                 className={`flex flex-row items-center gap-1.5 font-outfit font-medium py-3 px-5 rounded-2xl bg-sidebar-hover min-w-0 max-w-full overflow-hidden`}
             >
@@ -40,12 +92,20 @@ export default function EventPreview({event} : {event : Event}) {
                         {event.name}
                     </span>
                 </button>
-                <button 
-                    className="fixed bottom-4 left-4 md:ml-auto md:static md:flex p-1.25 rounded-full cursor-pointer outline-2 outline-solid outline-foreground bg-admin-edit hover:bg-crumbs-hover"
-                    onClick={() => redirect(edit, RedirectType.push)}
-                >
-                    <Settings />
-                </button>
+                <div className="fixed bottom-4 left-4 md:ml-auto md:static flex flex-col md:flex-row gap-5">
+                    <button 
+                        className="md:flex p-1.25 rounded-full cursor-pointer outline-2 outline-solid outline-foreground bg-admin-edit hover:bg-crumbs-hover"
+                        onClick={() => redirect(edit, RedirectType.push)}
+                    >
+                        <Settings />
+                    </button>
+                    <button 
+                        className="md:flex p-1.25 rounded-full cursor-pointer outline-2 outline-solid outline-foreground bg-red-500 opacity-80 md:opacity-100 hover:bg-red-800"
+                        onClick={() => setConfirm(true)}
+                    >
+                        <Trash2 />
+                    </button>
+                </div>
             </div>
 
             <div className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-2">
