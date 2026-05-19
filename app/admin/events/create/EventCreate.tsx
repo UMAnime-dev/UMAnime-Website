@@ -1,51 +1,55 @@
 "use client"
 
-import { Event, EventSchema } from "@/data/schedule/EventSchema"
-import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleDashed, CircleDot, HardDriveDownload, Link, Pencil, Settings, SquareChartGantt } from "lucide-react"
-import { redirect, RedirectType } from "next/navigation"
+import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleDashed, CircleDot, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, Pencil } from "lucide-react"
+import { redirect, RedirectType } from 'next/navigation'
 
-import Image from "next/image";
+import Image from 'next/image'
+import randomstring from 'randomstring';
+import { useEffect, useRef, useState } from 'react'
+import Form from 'next/form';
 
-import Form from 'next/form'
-import { useEffect, useRef, useState } from "react";
-import { sendUpdate } from "@/app/admin/events/actions";
+import { sendInsert } from "@/app/admin/events/actions";
+import { EventSchema } from "@/data/schedule/EventSchema";
 
-export default function EventModify({event} : {event : Event}) {
+export default function EventCreate() {
 
-    // Links
     const scheduler = '/admin/events'
-    const preview = `/admin/events/${event.id}`
-    const current = `/admin/events/${event.id}/edit`
+    const current = `/admin/events/create`
 
     // UI
     const [coverHover, setCoverHover] = useState(false)
     const fileInputRef = useRef<HTMLInputElement | null>(null)
-
+    
     // Data
-    const [coverImage, setCoverImage] = useState<string>(event.photourl)
+    const [coverImage, setCoverImage] = useState<string>('icebreaker.jpg')
     const [uploadImage, setUploadImage] = useState<File | null>(null);
-    const [title, setTitle] = useState<string>(event.name)
-    const [description, setDescription] = useState<string>(event.description)
 
-    const [date, setDate] = useState<Date>(event.startdate)
-    const [startTime, setStart] = useState<string>(event.startdate.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    }))
-    const [endTime, setEnd] = useState<string>(event.enddate.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    }))
-    const [location, setLocation] = useState<string>(event.location)
+    const [eventID, setID] = useState<string>("")
+    const [title, setTitle] = useState<string>("")
+    const [description, setDescription] = useState<string>("")
 
-    const [membership, setMembership] = useState<boolean>(event.membership)
+    const [date, setDate] = useState<Date | null>(null)
+    const [startTime, setStart] = useState<string>("")
+    const [endTime, setEnd] = useState<string>("")
+    const [location, setLocation] = useState<string>("")
+
+    const [membership, setMembership] = useState<boolean>(true)
     const [rsvpType, setRSVPType] = useState<"EXTERNAL" | "SYSTEM" | "NONE">("NONE")
-    const [rsvpExternal, setRSVPExternal] = useState<string>(event.rsvp ? event.rsvp : "")
+    const [rsvpExternal, setRSVPExternal] = useState<string>("")
 
     const validate = async () => {
-        
+        if (!uploadImage) {
+            history.pushState(null, '#cover')
+            document.getElementById('cover')?.scrollIntoView({ behavior: 'smooth' })
+            return
+        }
+
+        if (!date) {
+            history.pushState(null, '#cover')
+            document.getElementById('logistic')?.scrollIntoView({ behavior: 'smooth' })
+            return
+        }
+
         const startDate = new Date(date)
         const endDate = new Date(date)
 
@@ -61,28 +65,27 @@ export default function EventModify({event} : {event : Event}) {
         const fileName = await uploadHandler()
         
         const object = await EventSchema.safeParseAsync({
-            id: event.id,
+            id: eventID,
             name: title,
             photourl: uploadImage != null ? fileName : coverImage,
-            photooffset: event.photooffset,
+            photooffset: "0%_0%",
             description: description,
             location: location,
             startdate: startDate,
             enddate: endDate,
             rsvp: rsvpExternal.length > 0 && rsvpType === "EXTERNAL" ? rsvpExternal : null,
             membership: membership,
-            created_at: event.created_at,
-            updated_at: new Date()
+            created_at: new Date(),
+            updated_at: null
         })
         
         if (object.success) {
-            const result = await sendUpdate(event.id, object.data)
+            const result = await sendInsert(eventID, object.data)
 
             if (result) {
-                redirect(preview, RedirectType.replace)
+                redirect(scheduler, RedirectType.replace)
             }
         }
-        
     }
 
     const uploadHandler = async () => {
@@ -108,13 +111,8 @@ export default function EventModify({event} : {event : Event}) {
     }
 
     useEffect(() => {
-        const handleBeforeUnload = (e : BeforeUnloadEvent) => {
-        e.preventDefault() 
-        e.returnValue = true 
-        }
-
-        window.addEventListener('beforeunload', handleBeforeUnload)
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setID(randomstring.generate(24))
     }, [])
 
     return (
@@ -123,7 +121,7 @@ export default function EventModify({event} : {event : Event}) {
                 className={`flex flex-row items-center gap-1.5 font-outfit font-medium py-3 px-5 rounded-2xl bg-sidebar-hover min-w-0 max-w-full overflow-hidden`}
             >
                 <div className="flex border-r-2 border-[#6e6e6e] pr-3">
-                    <ArrowLeft className="cursor-pointer" onClick={() => redirect(preview, RedirectType.push)}/>
+                    <ArrowLeft className="cursor-pointer" onClick={() => redirect(scheduler, RedirectType.push)}/>
                 </div>
                 <button 
                     className="flex gap-2 text-foreground ml-1 p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover max-w-10 md:max-w-none"
@@ -134,32 +132,22 @@ export default function EventModify({event} : {event : Event}) {
                         Event Scheduler
                     </span>
                 </button>
-                <ChevronRight className="min-w-6"/>
-                <button 
-                    className="flex gap-2 text-foreground p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover max-w-10 md:max-w-none"
-                    onClick={() => redirect(preview, RedirectType.push)}
-                >
-                    <SquareChartGantt className="md:block hidden"/>
-                    <span className="truncate flex-1 min-w-0">
-                        {event.name}
-                    </span>
-                </button>
-                <ChevronRight className="min-w-6"/>
+                <ChevronRight className="shrink-0"/>
                 <button 
                     className="flex gap-2 text-foreground p-1.25 rounded-xl cursor-pointer hover:bg-crumbs-hover"
                     onClick={() => redirect(current, RedirectType.push)}
                 >
-                    <Settings />
+                    <GitPullRequestCreateArrow />
                     <span className="truncate flex-1 min-w-0">
-                        Edit Event
+                        Create an Event
                     </span>
                 </button>
             </div>
-            
-            <Form action={validate} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
 
+            <Form action={validate} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
+                
                 {/* Photo Edit */}
-                <section className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
+                <section id="cover" className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
                     <h1 className="w-full md:text-2xl font-bold font-outfit tracking-wider">
                         <span>
                             Cover Image
@@ -171,12 +159,42 @@ export default function EventModify({event} : {event : Event}) {
                     <div 
                         className="flex relative w-full h-100 max-h-100 overflow-hidden rounded-2xl"
                         onMouseEnter={() => {
-                            setCoverHover(true)
+                            if (uploadImage) {
+                                setCoverHover(true)
+                            }
                         }}
                         onMouseLeave={() => {
-                            setCoverHover(false)
+                            if (uploadImage) {
+                                setCoverHover(false)
+                            }
                         }}
                     >
+                        <div className={`${uploadImage ? "hidden" : "flex"} items-center justify-center absolute w-full h-full z-999 bg-white/40`}>
+                            <input 
+                                type="file"
+                                accept="image/*"
+                                ref={fileInputRef}
+                                className="hidden"
+                                name='cover'
+                                onChange={async (e) => {
+                                    const file = e.currentTarget.files?.[0];
+                                    if (!file) return;
+
+                                    setCoverImage(URL.createObjectURL(file))
+                                    setUploadImage(file)
+                                }}
+                            />
+                            <button
+                                type="button"
+                                className={`flex flex-col gap-3 px-4 items-center justify-center bg-background hover:bg-navbar w-35 h-35 rounded-xl cursor-pointer font-outfit text-sm`}
+                                onClick={() => {
+                                    fileInputRef.current?.click()
+                                }}
+                            >
+                                <FilePlus className="scale-130 text-foreground"/>
+                                Upload your cover photo
+                            </button>
+                        </div>
                         <div 
                             className="absolute inset-0 bg-cover bg-center blur-xl z-0" 
                             style={{ backgroundImage: uploadImage ? `url(${coverImage})` : `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage})` }}
@@ -187,7 +205,7 @@ export default function EventModify({event} : {event : Event}) {
                                 width={1920} 
                                 height={1080} 
                                 className={`w-full h-full object-contain`}
-                                alt={event.id}
+                                alt={'new event'}
                             />
 
                             <div className={`absolute flex items-center justify-center w-full h-full bg-black/50 ${coverHover ? "" : "hidden"}`}>
@@ -217,18 +235,20 @@ export default function EventModify({event} : {event : Event}) {
                             </div>
                         </div>
                     </div>
+                    
                 </section>
                 
-                {/* Event Overview */}
+                {/* Overview */}
                 <section id="overview" className="flex flex-col gap-6 border-2 rounded-xl px-8 pt-8 pb-13 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
                     <h1 className="flex flex-row items-center w-full font-outfit tracking-wider pr-5">
                         <span className='md:text-2xl font-bold'>
                             Event Overview
                         </span>
                         <span className='ml-auto text-xs italic font-light'>
-                            Event ID: {event.id}
+                            Event ID: {eventID}
                         </span>
                     </h1>
+                    
 
                     <section className="flex flex-col gap-10 mx-5">
                         <main className="flex flex-col gap-4">
@@ -247,7 +267,7 @@ export default function EventModify({event} : {event : Event}) {
                                 </span>
                                 <input
                                     name="title" 
-                                    placeholder={event.name}
+                                    placeholder={"Anime Event Name..."}
                                     value={title}
                                     required={true}
                                     onChange={(e) => {setTitle(e.currentTarget.value)}}
@@ -272,7 +292,7 @@ export default function EventModify({event} : {event : Event}) {
                                 </span>
                                 <input
                                     name="description" 
-                                    placeholder={event.description}
+                                    placeholder={"Anime Event Description..."}
                                     value={description}
                                     required={true}
                                     onChange={(e) => {setDescription(e.currentTarget.value)}}
@@ -306,7 +326,7 @@ export default function EventModify({event} : {event : Event}) {
                                     </span>
                                     <input
                                         name="date" 
-                                        value={date.toISOString().split('T')[0]}
+                                        value={date ? date.toISOString().split('T')[0] : ""}
                                         required={true}
                                         type="date"
                                         onChange={(e) => setDate(new Date(e.currentTarget.value.replaceAll('-', '/')))}
@@ -366,7 +386,7 @@ export default function EventModify({event} : {event : Event}) {
                                 </span>
                                 <input
                                     name="location" 
-                                    placeholder={event.location}
+                                    placeholder={'University of Manitoba'}
                                     value={location}
                                     required={true}
                                     onChange={(e) => {setLocation(e.currentTarget.value)}}
@@ -523,6 +543,7 @@ export default function EventModify({event} : {event : Event}) {
                     </button>
                 </section>
             </Form>
+            
         </main>
     )
 }

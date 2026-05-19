@@ -5,7 +5,8 @@ import EventListCard from "@/app/lib/components/admin/events/AdminListCard"
 
 import { Events } from "@/data/schedule/EventSchema"
 import { groupEventsByMonth } from "@/data/schedule/ScheduleFunctions"
-import { ChevronUp, LayoutGrid, LayoutList } from "lucide-react"
+import { CalendarPlus, ChevronUp, LayoutGrid, LayoutList } from "lucide-react"
+import { redirect, RedirectType } from "next/navigation"
 import { useState } from "react"
 
 export default function EventsAdmin({ events }:{ events : Events }) {
@@ -27,21 +28,31 @@ export default function EventsAdmin({ events }:{ events : Events }) {
                 <h1 className="font-outfit text-[clamp(16px,2.5vw,28px)] font-semibold text-foreground w-fit px-2">
                     Events Scheduler
                 </h1>
-                <button className={`flex items-center justify-center ${listType === "GRID" ? "gap-1" : "gap-2"} ml-auto bg-eventView hover:bg-eventView-hover w-30 h-10 rounded-lg font-outfit cursor-pointer`}
-                    onClick={() => {
-                        if (listType === "LIST") {
-                            setListType("GRID")
-                        } else {
-                            setListType("LIST")
+                <div className="flex flex-row gap-5 ml-auto">
+                    <button className={`flex items-center justify-center ${listType === "GRID" ? "gap-1" : "gap-2"} bg-eventView hover:bg-eventView-hover w-30 h-10 rounded-lg font-outfit cursor-pointer`}
+                        onClick={() => {
+                            if (listType === "LIST") {
+                                setListType("GRID")
+                            } else {
+                                setListType("LIST")
+                            }
+                        }}
+                    >
+                        {
+                            listType === "LIST" ? <LayoutList /> : <LayoutGrid />
                         }
-                    }}
-                >
-                    {
-                        listType === "LIST" ? <LayoutList /> : <LayoutGrid />
-                    }
 
-                    {listType === "LIST" ? "List View" : "Grid View"}
-                </button>
+                        {listType === "LIST" ? "List View" : "Grid View"}
+                    </button>
+                    <button
+                        className={`flex gap-2 items-center justify-center bg-eventView hover:bg-eventView-hover w-40 h-10 rounded-lg font-outfit cursor-pointer`}
+                        onClick={() => redirect('/admin/events/create', RedirectType.push)}
+                    >
+                        <CalendarPlus />
+                        Create Event
+                    </button>
+                </div>
+                
             </section>
             <div className="w-full mt-10">
                 {

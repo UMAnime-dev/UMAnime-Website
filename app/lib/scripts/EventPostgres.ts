@@ -1,6 +1,5 @@
 import postgres from 'postgres'
 import { Event, EventSchema } from "@/data/schedule/EventSchema"
-import { unstable_noStore as noStore } from 'next/cache'
 
 const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
 
@@ -30,7 +29,6 @@ export async function getEventById(id : string) : Promise<null | Event> {
 }
 
 export async function updateEvent(id : string, event : Event) {
-    noStore()
     const sql_result = await sql`
         update public.events
         set 
@@ -55,5 +53,49 @@ export async function updateEvent(id : string, event : Event) {
             return result.data
         }
     } 
+    return null
+}
+
+export async function insertEvent(id: string, event: Event) {
+    const sql_result = await sql`
+        insert into public.events (
+            id,
+            name,
+            description,
+            photourl,
+            photooffset,
+            location,
+            startdate,
+            enddate,
+            rsvp,
+            membership,
+            created_at,
+            updated_at
+        )
+        values (
+            ${id},
+            ${event.name},
+            ${event.description},
+            ${event.photourl ?? null},
+            ${event.photooffset},
+            ${event.location},
+            ${event.startdate},
+            ${event.enddate},
+            ${event.rsvp ?? null},
+            ${event.membership ?? false},
+            ${event.created_at},
+            ${event.updated_at ?? null}
+        )
+        returning *
+    `
+
+    if (sql_result.length) {
+        const result = await EventSchema.safeParseAsync(sql_result[0])
+
+        if (result.success) {
+            return result.data
+        }
+    }
+
     return null
 }

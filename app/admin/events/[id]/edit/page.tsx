@@ -1,7 +1,6 @@
 "use server"
 
-import { getEventById, updateEvent } from "@/app/lib/scripts/EventPostgres"
-import { Event } from "@/data/schedule/EventSchema"
+import { getEventById } from "@/app/lib/scripts/EventPostgres"
 import EventModify from "./EventModify"
 import { redirect, RedirectType } from "next/navigation"
 
@@ -23,6 +22,3 @@ export default async function EditEventPage({
     )
 }
 
-export async function sendUpdate(id : string, event : Event) {
-    return await updateEvent(id, event)
-}
