@@ -29,12 +29,12 @@ export default function GalleryPort() {
                                         return (
                                             <div key={gallery.id} className="flex flex-col items-start gap-2">
                                                 <button key={gallery.id} className="relative rounded-3xl border-5 overflow-hidden cursor-pointer max-h-67.5 max-w-112.5 border-foreground hover:border-gallery-hover hover:scale-105 transition duration-200 ease-in-out"
-                                                    onClick={() => {redirect(`/events/${gallery.folderPath}`, RedirectType.push)}}
+                                                    onClick={() => {redirect(`/events/${gallery.event_name}`, RedirectType.push)}}
                                                 >
-                                                    <Image src={gallery.coverPath} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${gallery.coverOffset}]`} alt={gallery.id}/>
+                                                    <Image src={gallery.cover_image} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${gallery.cover_offset}]`} alt={gallery.id}/>
                                                 </button>
                                                 <h1 className={`font-outfit font-bold text-2xl text-foreground`}>
-                                                    {gallery.name}
+                                                    {gallery.event_name}
                                                 </h1>
                                             </div>
                                         )
