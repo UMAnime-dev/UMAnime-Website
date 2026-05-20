@@ -19,7 +19,7 @@ export default function AdminEventGridCard({eventData}: {eventData: Event}) {
             
             {/* Date Section */}
             <section className="w-full h-50">
-                <Image src={`${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${eventData.photourl}`} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${eventData.photooffset}]`} loading={'eager'} alt={eventData.id}/>
+                <Image src={`${process.env.NEXT_PUBLIC_EVENT_DIRECTORY}${eventData.photourl}`} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${eventData.photooffset}]`} loading={'eager'} alt={eventData.id}/>
             </section>
             <h1
                 className="py-6 mx-7 font-roboto font-semibold tracking-wide text-xl md:text-2xl text-center"

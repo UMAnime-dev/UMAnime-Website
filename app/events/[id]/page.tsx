@@ -1,30 +1,36 @@
 import Footer from "@/app/lib/components/footer"
 import Navbar from "@/app/lib/components/navbar"
 
-import { galleries } from "@/data/gallery/GalleryData"
-import { getGalleryByPath } from "@/data/gallery/GalleryFunctions"
-import { getImagesFromFolder } from "@/data/gallery/ServerFunctions"
 import { redirect, RedirectType } from "next/navigation"
 
-import GalleryView from "./GalleryView"
+import { getGalleryByID } from "@/app/lib/scripts/GalleryAPI"
 import ReturnGallery from "@/app/lib/components/ReturnGallery"
+
+import GalleryView from "./GalleryView"
+import { getAllGalleries } from "@/app/lib/scripts/GalleryPostgres"
+import { GalleriesSchema } from "@/data/gallery/GallerySchema"
 
 export default async function Gallery({
         params
     }: 
     {
-        params: Promise<{ path: string[] }>
+        params: Promise<{ id: string }>
     }) {
-    const { path } = await params
-    const fullPath = '/' + path.join('/')
-
-    const gallery = getGalleryByPath(galleries, fullPath)
-
-    if (gallery === undefined) {
+    const { id } = await params
+    
+    const gallery_result = await getAllGalleries()
+    const gallery_obj = await GalleriesSchema.safeParseAsync(gallery_result)
+    
+    if (!gallery_obj.success) {
         redirect('/events', RedirectType.replace)
     }
+    const event = gallery_obj.data.find(cursor => cursor.id === id)
+    const images = await getGalleryByID(id)
 
-    const images = await getImagesFromFolder(gallery.folderPath);
+
+    if (images === undefined || !event) {
+        redirect('/events', RedirectType.replace)
+    }
 
     return (
         <main className="relative w-full min-h-screen overflow-x-hidden bg-background">
@@ -32,23 +38,23 @@ export default async function Gallery({
                 <div className="flex flex-col text-center mb-15 mt-13 mx-5 md:mx-15 items-center">
                     <ReturnGallery/>
                     <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground w-fit px-2">
-                        {gallery.name}
+                        {event.name}
                     </h2>
                     <span className="font-outfit text-lg text-foreground w-fit px-2 tracking-wide">
-                        Date: {gallery.eventDate.toLocaleDateString("en-US", {
+                        Date: {event.date.toLocaleDateString("en-US", {
                             weekday: "long",
                             month: "long",
                             day: "numeric",
                             year: "numeric"
-                        }) + " @ " + gallery.eventDate.toLocaleTimeString("en-US", {
+                        }) + " @ " + event.date.toLocaleTimeString("en-US", {
                             hour: "2-digit",
                             minute: "2-digit"
                         })}
                     </span>
                     <span className="font-outfit text-lg text-foreground w-fit px-2 tracking-wide">
-                        {gallery.location ? "Location: " + gallery.location : ""}
+                        {event.location ? "Location: " + event.location : ""}
                     </span>
-                    <GalleryView images={images} fullPath={fullPath}/>
+                    <GalleryView images={images} eventId={event.id}/>
                 </div>
             <Footer/>
         </main>

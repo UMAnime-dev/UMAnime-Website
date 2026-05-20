@@ -3,10 +3,10 @@
 import Image from "next/image"
 import { redirect, RedirectType } from "next/navigation"
 
-import { galleries } from "@/data/gallery/GalleryData"
 import { groupEventsByRangeYear } from "@/data/gallery/GalleryFunctions"
+import { Galleries } from "@/data/gallery/GallerySchema"
 
-export default function GalleryPort() {
+export default function GalleryPort({ galleries } : { galleries : Galleries }) {
 
     const groupedGalleries = groupEventsByRangeYear(galleries)
 
@@ -29,12 +29,12 @@ export default function GalleryPort() {
                                         return (
                                             <div key={gallery.id} className="flex flex-col items-start gap-2">
                                                 <button key={gallery.id} className="relative rounded-3xl border-5 overflow-hidden cursor-pointer max-h-67.5 max-w-112.5 border-foreground hover:border-gallery-hover hover:scale-105 transition duration-200 ease-in-out"
-                                                    onClick={() => {redirect(`/events/${gallery.event_name}`, RedirectType.push)}}
+                                                    onClick={() => {redirect(`/events/${gallery.id}`, RedirectType.push)}}
                                                 >
-                                                    <Image src={gallery.cover_image} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${gallery.cover_offset}]`} alt={gallery.id}/>
+                                                    <Image src={`${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${gallery.id}/${gallery.cover_image}`} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${gallery.cover_offset}]`} alt={gallery.id}/>
                                                 </button>
                                                 <h1 className={`font-outfit font-bold text-2xl text-foreground`}>
-                                                    {gallery.event_name}
+                                                    {gallery.name}
                                                 </h1>
                                             </div>
                                         )

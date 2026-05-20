@@ -4,35 +4,50 @@ import Footer from "@/app/lib/components/footer"
 import Navbar from "@/app/lib/components/navbar"
 
 import EventsView from "./EventsView"
-import GalleryPort from "./GalleryPort"
 
 import { getAllEvents } from "@/app/lib/scripts/EventPostgres"
 import { EventsSchema } from "@/data/schedule/EventSchema"
 
+
 import EmptyEvents from "@/app/lib/fillers/EmptyEvents"
 import DatabaseError from "@/app/lib/fillers/DatabaseError"
 
+import { getAllGalleries } from "@/app/lib/scripts/GalleryPostgres"
+import { GalleriesSchema } from "@/data/gallery/GallerySchema"
+import GalleryPort from "./GalleryPort"
+
 export default async function EventPage() {
 
-    const db_result = await getAllEvents()
+    const event_result = await getAllEvents()
 
-    const events = await EventsSchema.safeParseAsync(db_result)
+    const gallery_result = await getAllGalleries()
+
+    const events_obj = await EventsSchema.safeParseAsync(event_result)
+
+    const gallery_obj = await GalleriesSchema.safeParseAsync(gallery_result)
 
     return (
         <>
             <main className="relative w-full min-h-screen overflow-x-hidden bg-background">
                 <Navbar/>
                     {
-                        events.success == false ? 
+                        events_obj.success == false ? 
                             <DatabaseError/> 
                         :
-                            events.data.length === 0 ? 
+                            events_obj.data.length === 0 ? 
                                 <EmptyEvents/>
                             : 
-                                <EventsView events={events.data}/>
+                                <EventsView events={events_obj.data}/>
                     }
-                    
-                    <GalleryPort/>
+                    {
+                        gallery_obj.success == false ? 
+                            <DatabaseError/> 
+                        :
+                            gallery_obj.data.length === 0 ? 
+                                <EmptyEvents/>
+                            : 
+                                <GalleryPort galleries={gallery_obj.data}/>
+                    }
                 <Footer/>
             </main>
         </>

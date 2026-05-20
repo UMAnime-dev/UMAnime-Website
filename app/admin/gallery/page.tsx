@@ -3,7 +3,6 @@ export const dynamic = 'force-dynamic'
 import { GalleriesSchema } from "@/data/gallery/GallerySchema"
 import DatabaseError from "@/app/lib/fillers/DatabaseError"
 import { getAllEvents } from "@/app/lib/scripts/EventPostgres"
-import GalleryAdmin from "@/app/admin/gallery/GalleryAdmin"
 
 export default async function GalleryPanel() {
     const db_result = await getAllEvents()

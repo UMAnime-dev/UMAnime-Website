@@ -2,12 +2,12 @@ import { Gallery } from "./GallerySchema";
 
 export function groupEventsByRangeYear(galleries: Gallery[]) {
     const sorted = [...galleries].sort(
-        (a, b) => a.eventDate.getTime() - b.eventDate.getTime()
+        (a, b) => a.date.getTime() - b.date.getTime()
     );
 
     const grouped = sorted.reduce<Record<string, Gallery[]>>((acc, gallery) => {
 
-        const date = gallery.eventDate;
+        const date = gallery.date;
         const startYear = date.getMonth() >= 4 ? date.getFullYear() : date.getFullYear() - 1;
 
         const endYear = startYear + 1;
@@ -24,8 +24,4 @@ export function groupEventsByRangeYear(galleries: Gallery[]) {
     }, {});
 
     return grouped;
-}
-
-export function getGalleryByPath(galleries: Gallery[], galleryPath: string) {
-    return galleries.find(gallery => gallery.folderPath === galleryPath);
 }

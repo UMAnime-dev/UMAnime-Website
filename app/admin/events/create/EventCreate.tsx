@@ -242,11 +242,11 @@ export default function EventCreate() {
                         </div>
                         <div 
                             className="absolute inset-0 bg-cover bg-center blur-xl z-0" 
-                            style={{ backgroundImage: uploadImage ? `url(${coverImage})` : `url(${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage})` }}
+                            style={{ backgroundImage: uploadImage ? `url(${coverImage})` : `url(${process.env.NEXT_PUBLIC_EVENT_DIRECTORY}${coverImage})` }}
                         />
                         <div className="relative w-full h-full z-10 flex items-center justify-center">
                             <Image 
-                                src={uploadImage ? `${coverImage}` : `${process.env.NEXT_PUBLIC_IMAGE_DIRECTORY}${coverImage}` }
+                                src={uploadImage ? `${coverImage}` : `${process.env.NEXT_PUBLIC_EVENT_DIRECTORY}${coverImage}` }
                                 width={1920} 
                                 height={1080} 
                                 className={`w-full h-full object-contain`}

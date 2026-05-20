@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import { X } from "lucide-react"
 
-export default function GalleryView({images, fullPath} : { images: string[], fullPath: string }) {
+export default function GalleryView({ images, eventId } : { images: string[] , eventId : string}) {
 
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
@@ -35,7 +35,7 @@ export default function GalleryView({images, fullPath} : { images: string[], ful
             <section className="columns-1 sm:columns-2 lg:columns-3 xl:columns-3 2xl:columns-4 px-3 sm:px-0 pt-15 space-y-6">
                 {images.map((image) => {
                     
-                    const imagePath = `${fullPath}/${image}`
+                    const imagePath = `${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${eventId}/${image}`
                         
                     return (
                         <button key={image} className="relative rounded-3xl border-4 w-fit h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none" onClick={() => setSelectedImage(imagePath)}>

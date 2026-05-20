@@ -16,7 +16,6 @@ export async function GET(req: Request) {
         const { searchParams } = new URL(req.url)
         const targetGallery = searchParams.get('name') as string;
 
-        console.log(galleries)
         const folderName = galleries.find(cursor => cursor === targetGallery);
 
         if (!folderName) {
@@ -28,10 +27,7 @@ export async function GET(req: Request) {
 
         const files = fs.readdirSync(path.join(GALLERY_ROOT, folderName))
 
-        return NextResponse.json({
-            success: true,
-            files: files
-        })
+        return NextResponse.json(files)
         
     } catch (error) {
         console.log(`Error on Gallery API: ${error}`)
