@@ -1,7 +1,7 @@
 "use client"
 
 import { Gallery } from "@/data/gallery/GallerySchema";
-import { ArrowLeft, ChevronRight, CircleCheck, CircleX, FolderTree, GalleryVerticalEnd, Settings, ShieldAlert, Trash2 } from "lucide-react";
+import { ArrowLeft, ChevronRight, CircleCheck, CircleX, FolderTree, GalleryVerticalEnd, Settings, ShieldAlert, Trash2, X } from "lucide-react";
 
 import Image from "next/image";
 import { redirect, RedirectType } from "next/navigation";
@@ -10,15 +10,57 @@ import { useState } from "react";
 export default function GalleryPreview({ gallery, images } : { gallery : Gallery, images: string[] }) {
 
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
+    const [brokenImages, setBrokenImages] = useState<Record<string, boolean>>({});
     const [confirm, setConfirm] = useState<boolean>(false)
 
     const manager = '/admin/gallery'
     const current = `/admin/gallery/${gallery.id}`
     const edit = `/admin/gallery/${gallery.id}/edit`
 
+    const deleteEvent = async () => {
+
+        const params = new URLSearchParams();
+        params.append('id', gallery.id)
+        params.append('rsn', "collection")
+
+        const response = await fetch(`/api/gallery?${params}`, {
+            method: "DELETE",
+        });
+
+        if (response.ok) {
+            redirect(manager, RedirectType.replace)
+        } else {
+            window.location.reload()
+        }
+    }
+
     return (
         <main className="flex flex-col bg-sidebar flex-1 min-w-0 min-h-fit ml-4 md:ml-6 mr-4 my-8 rounded-2xl px-3 md:px-7 py-7 gap-10">
 
+            {/* Preview Component */}
+            <div className={`fixed w-full h-full top-0 left-0 z-999 bg-black/90 ${selectedImage ? "" : "hidden"}`}>
+                <button className="fixed right-8 top-15 md:top-8 cursor-pointer" onClick={() => (setSelectedImage(null))}>
+                    <X className="scale-150 text-white"/>
+                </button>
+                {selectedImage && (
+                    <section className="fixed flex flex-col h-full left-1/2 -translate-x-1/2 items-center justify-center gap-20">
+                        <h1 className="font-outfit font-semibold text-white">
+                            File name: {selectedImage}
+                        </h1>
+                        
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${gallery.id}/${selectedImage}`}
+                            width={1920}
+                            height={1080}
+                            quality={75}
+                            loading="lazy"
+                            className="w-auto h-auto md:max-w-[80%] md:max-h-[80%] object-contain z-999"
+                            alt="Selected image"
+                        />
+                    </section>
+                )}
+            </div>
+            
             {/* Confirmation Box */}
             <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
                 <div 
@@ -36,7 +78,7 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
                         <button 
                             className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
                             onClick={() => {
-                                // deleteEvent()
+                                deleteEvent()
                             }}
                         >
                             <CircleCheck />
@@ -46,7 +88,7 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
                         </button>
                         <button 
                             className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
-                            // onClick={() => setConfirm(false)}
+                            onClick={() => setConfirm(false)}
                         >
                             <CircleX />
                             <span className="truncate flex-1 min-w-0">
@@ -108,14 +150,29 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
                 </div>
             </div>
 
-            <section className="columns-1 sm:columns-2 lg:columns-3 xl:columns-3 2xl:columns-4 px-3 sm:px-0 pt-5 space-y-6">
+            <section className="w-full columns-1 sm:columns-2 lg:columns-3 xl:columns-3 2xl:columns-4 px-3 sm:px-0 pt-5 space-y-6">
                 {images.map((image) => {
                     
                     const imagePath = `${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${gallery.id}/${image}`
-                        
+                    
+                    if (brokenImages[image]) return;
+
                     return (
-                        <button key={image} className="relative rounded-3xl border-4 w-fit h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none" onClick={() => setSelectedImage(imagePath)}>
-                            <Image src={imagePath} width={1920} height={1080} style={{ width: '1920', height: '1080' }} className={`w-full h-full object-contain`} alt={imagePath} preload={true} loading="eager"/>
+                        <button key={image} className="relative rounded-3xl border-4 w-fit h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none" onClick={() => setSelectedImage(image)}>
+                            <Image 
+                                src={imagePath} 
+                                width={1920} height={1080} 
+                                style={{ width: '1920', height: '1080' }} 
+                                className={`w-full h-full object-contain`} 
+                                alt={imagePath} 
+                                preload={true} loading="eager"
+                                onError={() => {
+                                    setBrokenImages((prev) => ({
+                                        ...prev,
+                                        [image]: true
+                                    }));
+                                }}
+                            />
                         </button>
                     )
                 })}
