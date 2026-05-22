@@ -1,3 +1,4 @@
+export const revalidate = 60;
 export const dynamic = 'force-dynamic'
 
 import { getEventById } from "@/app/lib/scripts/EventPostgres"
