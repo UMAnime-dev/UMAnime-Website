@@ -13,9 +13,18 @@ export default async function IDGallery({
     params: Promise<{ id: string }>
 }) {
     const { id } = await (params)
-    const galleries = await getAllGalleries()
-    const galleries_obj = await GalleriesSchema.safeParseAsync(galleries)
-    const files = await getGalleryByID(id)
+
+    const [galleries] = await Promise.all([
+        getAllGalleries()
+    ])
+
+    const [galleries_obj] = await Promise.all([
+        GalleriesSchema.safeParseAsync(galleries)
+    ])
+
+    const [files] = await Promise.all([
+        getGalleryByID(id)
+    ])
 
     if (!galleries_obj.success || !files) {
         redirect(`/admin/gallery/`, RedirectType.replace)

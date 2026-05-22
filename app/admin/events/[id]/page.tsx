@@ -11,7 +11,10 @@ export default async function IDEvent({
     params: Promise<{ id: string }>
 }) {
     const { id } = await (params)
-    const result = await getEventById(id)
+    
+    const [result] = await Promise.all([
+        getEventById(id),
+    ])
     
     if (result == null) {
         redirect(`/admin/events/`, RedirectType.replace)

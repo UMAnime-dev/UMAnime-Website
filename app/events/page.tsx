@@ -18,13 +18,15 @@ import GalleryPort from "./GalleryPort"
 
 export default async function EventPage() {
 
-    const event_result = await getAllEvents()
+    const [eventResult, galleryResult] = await Promise.all([
+        getAllEvents(),
+        getAllGalleries(),
+    ])
 
-    const gallery_result = await getAllGalleries()
-
-    const events_obj = await EventsSchema.safeParseAsync(event_result)
-
-    const gallery_obj = await GalleriesSchema.safeParseAsync(gallery_result)
+    const [events_obj, gallery_obj] = await Promise.all([
+        EventsSchema.safeParseAsync(eventResult),
+        GalleriesSchema.safeParseAsync(galleryResult),
+    ])
 
     return (
         <>
