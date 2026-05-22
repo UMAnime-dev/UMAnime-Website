@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 60;
 
 import { GalleriesSchema } from "@/data/gallery/GallerySchema"
 import DatabaseError from "@/app/lib/fillers/DatabaseError"

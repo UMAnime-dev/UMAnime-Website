@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 60;
 
 import { EventsSchema } from "@/data/schedule/EventSchema"
 import EventsAdmin from "./EventsAdmin"

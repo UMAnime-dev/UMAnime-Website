@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 60;
 
 import { redirect, RedirectType } from "next/navigation"
 import GalleryPreview from "./GalleryPreview"
