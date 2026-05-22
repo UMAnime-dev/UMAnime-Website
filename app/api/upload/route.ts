@@ -55,11 +55,15 @@ export async function POST(req: Request) {
             const uploadDir = process.env.IMAGE_UPLOAD_DIRECTORY!;
             const uploadPath = path.join(uploadDir, fileName)
 
-            await sharp(buffer).resize({
-                width: 1920,
+            await sharp(buffer)
+            .rotate()
+            .resize({
+                width: 1600,
                 withoutEnlargement: true,
+                fit: "inside"
             }).webp({
-                quality: 80
+                quality: 75,
+                effort: 4
             }).toFile(uploadPath)
             
             return NextResponse.json({

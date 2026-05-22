@@ -93,11 +93,15 @@ export async function POST(req: Request) {
 
                     const filePath = path.join(eventFolder, `${path.parse(file.name).name}.webp`)
 
-                    await sharp(buffer).resize({
-                        width: 1920,
+                    await sharp(buffer)
+                    .rotate()
+                    .resize({
+                        width: 1600,
                         withoutEnlargement: true,
+                        fit: "inside"
                     }).webp({
-                        quality: 80
+                        quality: 75,
+                        effort: 4
                     }).toFile(filePath)
                 } catch (error) {
                     console.log(error)
