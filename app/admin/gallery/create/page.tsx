@@ -64,6 +64,20 @@ export default function GalleryCreate() {
             return
         };
 
+        const coverImageForm = new FormData();
+        coverImageForm.append("images", coverImage.file)
+        coverImageForm.append("id", eventID)
+        coverImageForm.append("purpose", "gallery")
+
+        const coverResponse = await fetch("/api/gallery", {
+            method: "POST",
+            body: coverImageForm,
+        });
+
+        await coverResponse.json();
+
+        if (!coverResponse.ok) return;
+
 
         // Database Validate and Input
         const db_input = await GallerySchema.safeParseAsync({
@@ -81,7 +95,6 @@ export default function GalleryCreate() {
 
         if (result) {
             
-
             const formData = new FormData();
             images.forEach((img) => {
                 formData.append("images", img.file)
@@ -89,7 +102,6 @@ export default function GalleryCreate() {
 
             
             formData.append("id", eventID)
-            
             formData.append("purpose", "gallery")
 
             const response = await fetch("/api/gallery", {
