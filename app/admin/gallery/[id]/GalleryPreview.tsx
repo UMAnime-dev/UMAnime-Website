@@ -6,6 +6,7 @@ import { ArrowLeft, ChevronRight, CircleCheck, CircleX, FolderTree, GalleryVerti
 import Image from "next/image";
 import { redirect, RedirectType } from "next/navigation";
 import { useState } from "react";
+import { deleteGallery } from "../actions";
 
 export default function GalleryPreview({ gallery, images } : { gallery : Gallery, images: string[] }) {
 
@@ -28,6 +29,7 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
         });
 
         if (response.ok) {
+            await deleteGallery(gallery.id)
             redirect(manager, RedirectType.replace)
         } else {
             window.location.reload()

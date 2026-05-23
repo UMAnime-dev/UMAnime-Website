@@ -62,14 +62,12 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
             formData.append("images", file)
         })
 
-        console.log(formData)
-
         const response = await fetch(`/api/gallery`, {
             method: "POST",
             body: formData
         });
 
-        console.log(await response.json())
+        await response.json()
 
         return response.ok
 
@@ -251,7 +249,7 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
                         {/* Upload Images Button */}
                         <div className="relative w-full h-full z-10 flex items-center justify-center">
                             <Image
-                                src={'/samples/gallery.jpg'}
+                                src={'/samples/gallery.webp'}
                                 width={1920} height={1080}
                                 style={{ width: '1920', height: '1080' }}
                                 className={`w-full h-full object-contain blur-sm`}

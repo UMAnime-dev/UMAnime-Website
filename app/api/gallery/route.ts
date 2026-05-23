@@ -137,6 +137,7 @@ export async function DELETE(req: Request) {
 
         const uploadDir = process.env.IMAGE_GALLERY_DIRECTORY!;
 
+        // Whole Collection vs Image
         if (purpose == "collection" && id) {
 
             const folder = path.join(uploadDir, id)
