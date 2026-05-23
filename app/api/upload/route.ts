@@ -1,5 +1,3 @@
-"use server"
-
 import { NextResponse } from "next/server";
 import path from "path";
 import sharp from "sharp";

@@ -1,5 +1,3 @@
-"use server"
-
 import { NextResponse } from "next/server";
 import fs from 'fs';
 import path from "path";
@@ -7,6 +5,14 @@ import sharp from "sharp";
 
 const GALLERY_ROOT = process.env.IMAGE_GALLERY_DIRECTORY!
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const safePath = (base: string, ...segments: string[]) => {
+    const resolved = path.join(base, ...segments);
+    if (!resolved.startsWith(base)) {
+        throw new Error("Directory traversal attempt was detected. No no no! :) -R.P.");
+    }
+    return resolved;
+};
 
 export async function GET(req: Request) {
 
@@ -140,7 +146,7 @@ export async function DELETE(req: Request) {
         // Whole Collection vs Image
         if (purpose == "collection" && id) {
 
-            const folder = path.join(uploadDir, id)
+            const folder = safePath(GALLERY_ROOT, path.basename(id));
 
             if (fs.existsSync(folder)) {
                 try {
