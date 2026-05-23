@@ -10,7 +10,7 @@ import randomstring from 'randomstring';
 import { useEffect, useRef, useState } from 'react'
 import Form from 'next/form';
 import { GallerySchema } from '@/data/gallery/GallerySchema';
-import { postGallery } from '../actions';
+import { postGallery } from '@/app/admin/gallery/actions';
 
 
 const ImageSchema = z.object({

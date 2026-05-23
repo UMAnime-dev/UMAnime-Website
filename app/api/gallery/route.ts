@@ -4,7 +4,7 @@ import path from "path";
 import sharp from "sharp";
 
 const GALLERY_ROOT = process.env.IMAGE_GALLERY_DIRECTORY!
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 const safePath = (base: string, ...segments: string[]) => {
     const resolved = path.join(base, ...segments);
@@ -50,7 +50,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
     try {
         const formData = await req.formData();
-        const files = formData.getAll('images') as File[] | null;
+        const files = formData.getAll('images') as File[];
         const id = formData.get('id') as string | null;
         const purpose = formData.get('purpose') as string | null;
 
@@ -74,6 +74,7 @@ export async function POST(req: Request) {
             await Promise.all(files.map( async (file) => {
                 try {
                     if (file.size > MAX_FILE_SIZE) {
+                        console.log("too big")
                         return failedUploads.push(file.name)
                     }
 
@@ -84,6 +85,7 @@ export async function POST(req: Request) {
                     ];
 
                     if (!allowedTypes.includes(file.type)) {
+                        console.log("not right")
                         return failedUploads.push(file.name)
                     }
 
@@ -94,7 +96,7 @@ export async function POST(req: Request) {
                     const eventFolder = path.join(uploadDir, id)
 
                     if (!fs.existsSync(eventFolder)) {
-                        fs.mkdirSync(eventFolder)
+                        fs.mkdirSync(eventFolder, { recursive: true })
                     }
 
                     const filePath = path.join(eventFolder, `${path.parse(file.name).name}.webp`)
