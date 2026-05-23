@@ -3,7 +3,7 @@
 import { z } from 'zod';
 
 import { ArrowLeft, CalendarClock, ChevronRight, CircleCheck, CircleX, Eye, FilePlus, FileUp, GitPullRequestCreateArrow, Pencil, Save, ShieldAlert, Trash2, X } from "lucide-react"
-import { redirect, RedirectType } from 'next/navigation'
+import { redirect, RedirectType, useRouter } from 'next/navigation'
 
 import Image from 'next/image'
 import randomstring from 'randomstring';
@@ -21,6 +21,8 @@ const ImageSchema = z.object({
 type ImageObject = z.infer<typeof ImageSchema>
 
 export default function GalleryCreate() {
+
+    const router = useRouter();
 
     const manager = '/admin/gallery'
     const current = `/admin/gallery/create`
@@ -97,7 +99,8 @@ export default function GalleryCreate() {
 
             await response.json();
 
-            redirect(manager, RedirectType.replace)
+            router.refresh()
+            router.push(manager)
         }
     }
 

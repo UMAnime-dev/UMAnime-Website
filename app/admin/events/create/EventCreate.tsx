@@ -10,8 +10,11 @@ import Form from 'next/form';
 
 import { sendInsert } from "@/app/admin/events/actions";
 import { EventSchema } from "@/data/schedule/EventSchema";
+import { useRouter } from "next/navigation";
 
 export default function EventCreate() {
+
+    const router = useRouter();
 
     const scheduler = '/admin/events'
     const current = `/admin/events/create`
@@ -88,7 +91,8 @@ export default function EventCreate() {
             const result = await sendInsert(eventID, object.data)
 
             if (result) {
-                redirect(scheduler, RedirectType.replace)
+                router.refresh()
+                router.push(scheduler)
             }
         }
     }
