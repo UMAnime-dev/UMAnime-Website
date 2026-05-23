@@ -11,7 +11,6 @@ import { useEffect, useRef, useState } from 'react'
 import Form from 'next/form';
 import { GallerySchema } from '@/data/gallery/GallerySchema';
 import { postGallery } from '../actions';
-import path from 'path';
 
 
 const ImageSchema = z.object({
@@ -68,7 +67,7 @@ export default function GalleryCreate() {
         const db_input = await GallerySchema.safeParseAsync({
             id: eventID,
             name: title,
-            cover_image: `${path.parse(coverImage.file.name).name}.webp`,
+            cover_image: `${coverImage.file.name.substring(0, coverImage.file.name.lastIndexOf('.'))}.webp`,
             cover_offset: null,
             date: new Date(date),
             location: location
