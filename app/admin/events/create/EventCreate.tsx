@@ -32,7 +32,7 @@ export default function EventCreate() {
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
 
-    const [date, setDate] = useState<Date | null>(null)
+    const [date, setDate] = useState<string>("")
     const [startTime, setStart] = useState<string>("")
     const [endTime, setEnd] = useState<string>("")
     const [location, setLocation] = useState<string>("")
@@ -375,10 +375,10 @@ export default function EventCreate() {
                                     </span>
                                     <input
                                         name="date" 
-                                        value={date ? date.toISOString().split('T')[0] : ""}
+                                        value={date}
                                         required={true}
                                         type="date"
-                                        onChange={(e) => setDate(new Date(e.currentTarget.value.replaceAll('-', '/')))}
+                                        onChange={(e) => setDate(e.target.value)}
                                         className="w-full h-full border-2 rounded-xl px-3"
                                     />
                                 </div>

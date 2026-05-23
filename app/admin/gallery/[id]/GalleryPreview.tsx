@@ -4,12 +4,14 @@ import { Gallery } from "@/data/gallery/GallerySchema";
 import { ArrowLeft, ChevronRight, CircleCheck, CircleX, FolderTree, GalleryVerticalEnd, Settings, ShieldAlert, Trash2, X } from "lucide-react";
 
 import Image from "next/image";
-import { redirect, RedirectType } from "next/navigation";
+import { redirect, RedirectType, useRouter } from "next/navigation";
 import { useState } from "react";
 import { deleteGallery } from "../actions";
 
 export default function GalleryPreview({ gallery, images } : { gallery : Gallery, images: string[] }) {
 
+    const router = useRouter();
+    
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [brokenImages, setBrokenImages] = useState<Record<string, boolean>>({});
     const [confirm, setConfirm] = useState<boolean>(false)
@@ -30,7 +32,8 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
 
         if (response.ok) {
             await deleteGallery(gallery.id)
-            redirect(manager, RedirectType.replace)
+            router.refresh()
+            router.push(manager)
         } else {
             window.location.reload()
         }

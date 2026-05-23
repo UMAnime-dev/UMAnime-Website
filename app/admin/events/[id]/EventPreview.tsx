@@ -2,7 +2,7 @@
 
 import { Event } from "@/data/schedule/EventSchema";
 import { ArrowLeft, CalendarClock, ChevronRight, CircleCheck, CircleX, ExternalLink, Settings, ShieldAlert, SquareChartGantt, Trash2 } from 'lucide-react'
-import { redirect, RedirectType } from 'next/navigation'
+import { redirect, RedirectType, useRouter } from 'next/navigation'
 
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { useState } from "react";
 import { sendDelete } from "@/app/admin/events/actions";
 
 export default function EventPreview({event} : {event : Event}) {
+
+    const router = useRouter();
 
     const scheduler = '/admin/events'
     const current = `/admin/events/${event.id}`
@@ -21,7 +23,8 @@ export default function EventPreview({event} : {event : Event}) {
         const result = await sendDelete(event.id)
 
         if (result) {
-            redirect(scheduler, RedirectType.replace)
+            router.refresh()
+            router.push(scheduler)
         }
         setConfirm(false)
     }
