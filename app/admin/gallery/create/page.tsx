@@ -554,7 +554,7 @@ export default function GalleryCreate() {
                 <section className="w-full flex items-center justify-center">
                     <button 
                         type="submit"
-                        className={`mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-100 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover bg-sidebar-logout`}
+                        className={`${saveInProgress ? "opacity-70 bg-sidebar-hover! cursor-not-allowed!" : "hover:bg-sidebar-hover"} mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-100 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap bg-sidebar-logout`}
                     >   
                         <Save className={`${saveInProgress ? "hidden" : ""}`}/>
                         <LoaderCircle className={`${!saveInProgress ? "hidden" : ""} animate-spin`}/>
