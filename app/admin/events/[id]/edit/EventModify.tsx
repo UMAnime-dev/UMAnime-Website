@@ -97,7 +97,7 @@ export default function EventModify({event} : {event : Event}) {
         }
         
         const formData = new FormData();
-        formData.append("eventId", event.id);
+        formData.append("id", event.id);
         formData.append("files", uploadImage);
 
         console.log("before")

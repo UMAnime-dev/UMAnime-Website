@@ -66,7 +66,7 @@ export default function GalleryCreate() {
 
         const coverForm = new FormData();
 
-        coverForm.append("galleryId", eventID);
+        coverForm.append("id", eventID);
 
         coverForm.append("files", coverImage.file);
 
@@ -100,7 +100,7 @@ export default function GalleryCreate() {
             
             const formData = new FormData();
             
-            formData.append("galleryId", eventID);
+            formData.append("id", eventID);
 
             for (const file of images) {
                 formData.append("files", file.file);

@@ -55,7 +55,7 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
     const uploadHandler = async (filesToUpload : File[]) => {
         
         const formData = new FormData();
-        formData.append("galleryId", gallery.id);
+        formData.append("id", gallery.id);
 
         for (const file of filesToUpload) {
             formData.append("files", file);

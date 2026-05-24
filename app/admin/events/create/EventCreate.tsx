@@ -106,7 +106,7 @@ export default function EventCreate() {
         }
         
         const formData = new FormData();
-        formData.append("eventId", eventID);
+        formData.append("id", eventID);
         formData.append("files", uploadImage);
 
         console.log("before")
