@@ -192,7 +192,10 @@ export default function GalleryCreate() {
             <div className={`fixed top-0 left-0 ${confirm ? "flex" : "hidden"} items-center justify-center min-w-screen min-h-screen bg-black/50 z-999`}>
                 <div 
                     className="flex flex-col items-center justify-center gap-2 relative w-70 sm:w-100 md:w-150 h-60 sm:h-70 md:h-80 rounded-4xl bg-sidebar"
-                    onMouseLeave={() => setConfirm(false)}
+                    onMouseLeave={() => {
+                        setProgress(false)
+                        setConfirm(false)
+                    }}
                 >
                     <ShieldAlert className="w-10 h-10 sm:w-20 sm:h-20"/>
                     <h1 className="font-outfit text-base sm:text-2xl font-semibold">
@@ -215,7 +218,10 @@ export default function GalleryCreate() {
                         </button>
                         <button 
                             className="flex gap-1.5 text-foreground ml-1 py-1.25 px-2 rounded-xl cursor-pointer bg-crumbs-hover w-30 md:max-w-none hover:outline-2 hover:outline-solid outline-white"
-                            onClick={() => setConfirm(false)}
+                            onClick={() => {
+                                setProgress(false)
+                                setConfirm(false)
+                            }}
                         >
                             <CircleX />
                             <span className="truncate flex-1 min-w-0">
