@@ -63,12 +63,12 @@ export default function EventModify({event} : {event : Event}) {
         endDate.setHours(Number(endSplit[0]))
         endDate.setMinutes(Number(endSplit[1]))
 
-        const fileName = await uploadHandler()
+        await uploadHandler()
         
         const object = await EventSchema.safeParseAsync({
             id: event.id,
             name: title,
-            photourl: uploadImage != null ? fileName : coverImage,
+            photourl: uploadImage != null ? uploadImage.name : coverImage,
             photooffset: event.photooffset,
             description: description,
             location: location,
@@ -97,19 +97,21 @@ export default function EventModify({event} : {event : Event}) {
         }
         
         const formData = new FormData();
-        const fileName = String(Date.now()) + ".webp"
-        formData.append("name", fileName)
-        formData.append("image", uploadImage);
-        formData.append("purpose", "event")
+        formData.append("eventId", event.id);
+        formData.append("files", uploadImage);
 
-        const response = await fetch("/api/upload", {
+        console.log("before")
+        const response = await fetch("/api/upload/events", {
             method: "POST",
             body: formData,
         });
 
-        await response.json();
+        const json = await response.json()
+        const uploadedFiles = json.uploadedFiles
 
-        return fileName
+        if (!uploadedFiles) return;
+
+        return uploadedFiles[0].filename
     }
 
     useEffect(() => {

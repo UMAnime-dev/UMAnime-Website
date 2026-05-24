@@ -64,26 +64,29 @@ export default function GalleryCreate() {
             return
         };
 
-        const coverImageForm = new FormData();
-        coverImageForm.append("images", coverImage.file)
-        coverImageForm.append("id", eventID)
-        coverImageForm.append("purpose", "gallery")
+        const coverForm = new FormData();
 
-        const coverResponse = await fetch("/api/gallery", {
+        coverForm.append("galleryId", eventID);
+
+        coverForm.append("files", coverImage.file);
+
+        const coverResponse = await fetch("/api/upload/gallery", {
             method: "POST",
-            body: coverImageForm,
+            body: coverForm
         });
 
-        await coverResponse.json();
+        const json = await coverResponse.json()
+        const uploadedFiles = json.uploadedFiles
 
-        if (!coverResponse.ok) return;
+        if (!uploadedFiles) return;
 
+        const coverName = uploadedFiles[0].filename
 
         // Database Validate and Input
         const db_input = await GallerySchema.safeParseAsync({
             id: eventID,
             name: title,
-            cover_image: `${coverImage.file.name.substring(0, coverImage.file.name.lastIndexOf('.'))}.webp`,
+            cover_image: coverName,
             cover_offset: null,
             date: new Date(date),
             location: location
@@ -96,20 +99,17 @@ export default function GalleryCreate() {
         if (result) {
             
             const formData = new FormData();
-            images.forEach((img) => {
-                formData.append("images", img.file)
-            })
-
             
-            formData.append("id", eventID)
-            formData.append("purpose", "gallery")
+            formData.append("galleryId", eventID);
 
-            const response = await fetch("/api/gallery", {
+            for (const file of images) {
+                formData.append("files", file.file);
+            }
+
+            await fetch("/api/upload/gallery", {
                 method: "POST",
-                body: formData,
+                body: formData
             });
-
-            await response.json();
 
             router.refresh()
             router.push(manager)

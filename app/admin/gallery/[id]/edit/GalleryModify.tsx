@@ -55,19 +55,16 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
     const uploadHandler = async (filesToUpload : File[]) => {
         
         const formData = new FormData();
-        formData.append("id", gallery.id)
-        formData.append("purpose", "gallery")
+        formData.append("galleryId", gallery.id);
 
-        filesToUpload.forEach((file) => {
-            formData.append("images", file)
-        })
+        for (const file of filesToUpload) {
+            formData.append("files", file);
+        }
 
-        const response = await fetch(`/api/gallery`, {
+        const response = await fetch("/api/upload/gallery", {
             method: "POST",
             body: formData
         });
-
-        await response.json()
 
         return response.ok
 
