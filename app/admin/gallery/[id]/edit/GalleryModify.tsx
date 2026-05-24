@@ -67,7 +67,9 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
             body: formData
         });
 
-        return response.ok
+        if (response.ok) {
+            window.location.reload()
+        }
 
     }
 
