@@ -48,6 +48,7 @@ export default function EventModify({event} : {event : Event}) {
     const [saveInProgress, setProgress] = useState<boolean>(false)
 
     const triggerConfirmation = () => {
+        setProgress(true)
         setConfirm(true)
     }
 
@@ -65,7 +66,6 @@ export default function EventModify({event} : {event : Event}) {
         endDate.setHours(Number(endSplit[0]))
         endDate.setMinutes(Number(endSplit[1]))
 
-        setProgress(true)
         await uploadHandler()
         
         const object = await EventSchema.safeParseAsync({

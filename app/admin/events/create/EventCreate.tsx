@@ -44,10 +44,7 @@ export default function EventCreate() {
     const [saveInProgress, setProgress] = useState<boolean>(false)
 
     const triggerConfirmation = () => {
-        setConfirm(true)
-    }
 
-    const validate = async () => {
         if (!uploadImage) {
             history.pushState(null, '#cover')
             document.getElementById('cover')?.scrollIntoView({ behavior: 'smooth' })
@@ -60,6 +57,12 @@ export default function EventCreate() {
             return
         }
 
+        setProgress(true)
+        setConfirm(true)
+    }
+
+    const validate = async () => {
+        
         const startDate = new Date(date)
         const endDate = new Date(date)
 
@@ -72,7 +75,6 @@ export default function EventCreate() {
         endDate.setHours(Number(endSplit[0]))
         endDate.setMinutes(Number(endSplit[1]))
 
-        setProgress(true)
         const returnedName = await uploadHandler()
 
         if (!returnedName) {

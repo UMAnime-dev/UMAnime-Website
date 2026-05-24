@@ -54,24 +54,11 @@ export default function GalleryCreate() {
 
     const validate = async () => {
         
-        if (coverImage == undefined) {
-            history.pushState(null, '#cover')
-            document.getElementById('logistic')?.scrollIntoView({ behavior: 'smooth' })
-            return
-        };
-
-        if (images.length == 0) {
-            history.pushState(null, '#files')
-            document.getElementById('files')?.scrollIntoView({ behavior: 'smooth' })
-            return
-        };
-
-        setProgress(true)
         const coverForm = new FormData();
 
         coverForm.append("id", eventID);
 
-        coverForm.append("files", coverImage.file);
+        coverForm.append("files", coverImage!.file);
 
         const coverResponse = await fetch("/api/upload/gallery", {
             method: "POST",
@@ -125,6 +112,25 @@ export default function GalleryCreate() {
         }
 
         setProgress(false)
+    }
+
+    const triggerConfirm = () => {
+        
+        if (coverImage == undefined) {
+            history.pushState(null, '#cover')
+            document.getElementById('logistic')?.scrollIntoView({ behavior: 'smooth' })
+            return
+        };
+
+        if (images.length == 0) {
+            history.pushState(null, '#files')
+            document.getElementById('files')?.scrollIntoView({ behavior: 'smooth' })
+            return
+        };
+
+        setProgress(true)
+        setConfirm(true)
+        
     }
 
     const tempUpload = (files: File[]) => {
@@ -248,7 +254,7 @@ export default function GalleryCreate() {
                 </button>
             </div>
             
-            <Form action={validate} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
+            <Form action={triggerConfirm} className="flex flex-col xs:px-4 sm:px-7 pb-7 lg:px-20 xl:px-50 pt-7 gap-10">
 
                 {/* Photo Edit */}
                 <section id="cover" className="flex flex-col gap-6 border-2 rounded-xl px-5 sm:px-8 pt-6 pb-10 shadow-2xl shadow-navbar-dropdown hover:shadow-foreground/30 hover:border-navbar-join">
