@@ -1,7 +1,7 @@
 "use client"
 
 import { Event, EventSchema } from "@/data/schedule/EventSchema"
-import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, HardDriveDownload, Link, Pencil, Save, Settings, ShieldAlert, SquareChartGantt } from "lucide-react"
+import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, HardDriveDownload, Link, LoaderCircle, Pencil, Save, Settings, ShieldAlert, SquareChartGantt } from "lucide-react"
 import { redirect, RedirectType } from "next/navigation"
 
 import Image from "next/image";
@@ -45,6 +45,8 @@ export default function EventModify({event} : {event : Event}) {
     const [rsvpType, setRSVPType] = useState<"EXTERNAL" | "SYSTEM" | "NONE">("NONE")
     const [rsvpExternal, setRSVPExternal] = useState<string>(event.rsvp ? event.rsvp : "")
 
+    const [saveInProgress, setProgress] = useState<boolean>(false)
+
     const triggerConfirmation = () => {
         setConfirm(true)
     }
@@ -63,6 +65,7 @@ export default function EventModify({event} : {event : Event}) {
         endDate.setHours(Number(endSplit[0]))
         endDate.setMinutes(Number(endSplit[1]))
 
+        setProgress(true)
         await uploadHandler()
         
         const object = await EventSchema.safeParseAsync({
@@ -87,6 +90,8 @@ export default function EventModify({event} : {event : Event}) {
                 redirect(preview, RedirectType.replace)
             }
         }
+
+        setProgress(false)
         
     }
 
@@ -100,7 +105,6 @@ export default function EventModify({event} : {event : Event}) {
         formData.append("id", event.id);
         formData.append("files", uploadImage);
 
-        console.log("before")
         const response = await fetch("/api/upload/events", {
             method: "POST",
             body: formData,
@@ -566,7 +570,8 @@ export default function EventModify({event} : {event : Event}) {
                         type="submit"
                         className={`mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-100 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover bg-sidebar-logout`}
                     >   
-                        <Save />
+                        <Save className={`${saveInProgress ? "hidden" : ""}`}/>
+                        <LoaderCircle className={`${!saveInProgress ? "hidden" : ""} animate-spin`}/>
                         Save Changes
                     </button>
                 </section>

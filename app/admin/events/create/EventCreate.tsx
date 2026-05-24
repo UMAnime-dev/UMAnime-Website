@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, Pencil, Save, ShieldAlert } from "lucide-react"
+import { ArrowLeft, Ban, BookCheck, BookX, CalendarClock, ChevronRight, CircleCheck, CircleDashed, CircleDot, CircleX, FilePlus, GitPullRequestCreateArrow, HardDriveDownload, Link, LoaderCircle, Pencil, Save, ShieldAlert } from "lucide-react"
 import { redirect, RedirectType } from 'next/navigation'
 
 import Image from 'next/image'
@@ -41,6 +41,8 @@ export default function EventCreate() {
     const [rsvpType, setRSVPType] = useState<"EXTERNAL" | "SYSTEM" | "NONE">("NONE")
     const [rsvpExternal, setRSVPExternal] = useState<string>("")
 
+    const [saveInProgress, setProgress] = useState<boolean>(false)
+
     const triggerConfirmation = () => {
         setConfirm(true)
     }
@@ -70,9 +72,13 @@ export default function EventCreate() {
         endDate.setHours(Number(endSplit[0]))
         endDate.setMinutes(Number(endSplit[1]))
 
+        setProgress(true)
         const returnedName = await uploadHandler()
 
-        if (!returnedName) return;
+        if (!returnedName) {
+            setProgress(false)
+            return
+        };
         
         const object = await EventSchema.safeParseAsync({
             id: eventID,
@@ -97,6 +103,7 @@ export default function EventCreate() {
                 router.push(scheduler)
             }
         }
+        setProgress(false)
     }
 
     const uploadHandler = async () => {
@@ -109,7 +116,6 @@ export default function EventCreate() {
         formData.append("id", eventID);
         formData.append("files", uploadImage);
 
-        console.log("before")
         const response = await fetch("/api/upload/events", {
             method: "POST",
             body: formData,
@@ -595,7 +601,8 @@ export default function EventCreate() {
                         type="submit"
                         className={`mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-100 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover bg-sidebar-logout`}
                     >   
-                        <Save />
+                        <Save className={`${saveInProgress ? "hidden" : ""}`}/>
+                        <LoaderCircle className={`${!saveInProgress ? "hidden" : ""} animate-spin`}/>
                         Save Changes
                     </button>
                 </section>

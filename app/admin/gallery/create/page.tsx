@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-import { ArrowLeft, CalendarClock, ChevronRight, CircleCheck, CircleX, Eye, FilePlus, FileUp, GitPullRequestCreateArrow, Pencil, Save, ShieldAlert, Trash2, X } from "lucide-react"
+import { ArrowLeft, CalendarClock, ChevronRight, CircleCheck, CircleX, Eye, FilePlus, FileUp, GitPullRequestCreateArrow, LoaderCircle, Pencil, Save, ShieldAlert, Trash2, X } from "lucide-react"
 import { redirect, RedirectType, useRouter } from 'next/navigation'
 
 import Image from 'next/image'
@@ -50,6 +50,8 @@ export default function GalleryCreate() {
     const [date, setDate] = useState<string>("")
     const [location, setLocation] = useState<string | null>("")
 
+    const [saveInProgress, setProgress] = useState<boolean>(false)
+
     const validate = async () => {
         
         if (coverImage == undefined) {
@@ -64,6 +66,7 @@ export default function GalleryCreate() {
             return
         };
 
+        setProgress(true)
         const coverForm = new FormData();
 
         coverForm.append("id", eventID);
@@ -78,7 +81,10 @@ export default function GalleryCreate() {
         const json = await coverResponse.json()
         const uploadedFiles = json.uploadedFiles
 
-        if (!uploadedFiles) return;
+        if (!uploadedFiles) {
+            setProgress(false)
+            return
+        };
 
         const coverName = uploadedFiles[0].filename
 
@@ -92,7 +98,10 @@ export default function GalleryCreate() {
             location: location
         })
 
-        if (!db_input.success) return;
+        if (!db_input.success) {
+            setProgress(false)
+            return
+        };
 
         const result = await postGallery(db_input.data)
 
@@ -114,6 +123,8 @@ export default function GalleryCreate() {
             router.refresh()
             router.push(manager)
         }
+
+        setProgress(false)
     }
 
     const tempUpload = (files: File[]) => {
@@ -545,7 +556,8 @@ export default function GalleryCreate() {
                         type="submit"
                         className={`mt-10 flex flex-row justify-center gap-3 font-outfit font-medium w-100 p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover bg-sidebar-logout`}
                     >   
-                        <Save />
+                        <Save className={`${saveInProgress ? "hidden" : ""}`}/>
+                        <LoaderCircle className={`${!saveInProgress ? "hidden" : ""} animate-spin`}/>
                         Save Changes
                     </button>
                 </section>

@@ -14,6 +14,7 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
     
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
     const [brokenImages, setBrokenImages] = useState<Record<string, boolean>>({});
+    const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
     const [confirm, setConfirm] = useState<boolean>(false)
 
     const manager = '/admin/gallery'
@@ -162,19 +163,39 @@ export default function GalleryPreview({ gallery, images } : { gallery : Gallery
                     
                     if (brokenImages[image]) return;
 
+                    const isLoaded = loadedImages[image]
+
                     return (
-                        <button key={image} className="relative rounded-3xl border-4 w-fit h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none" onClick={() => setSelectedImage(image)}>
-                            <Image 
-                                src={imagePath} 
-                                width={1920} height={1080} 
-                                style={{ width: '1920', height: '1080' }} 
-                                className={`w-full h-full object-contain`} 
-                                alt={imagePath} 
-                                preload={true} loading="eager"
+                        <button
+                            key={image}
+                            className="relative mb-6 break-inside-avoid w-full rounded-3xl border-4 h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none"
+                            onClick={() => setSelectedImage(image)}
+                        >
+
+                            {!isLoaded && (
+                                <div className="w-full aspect-16/10 animate-pulse bg-foreground/10" />
+                            )}
+
+                            <Image
+                                src={imagePath}
+                                width={1920}
+                                height={1080}
+                                className={`w-full h-auto object-contain transition-opacity duration-500 ${
+                                    isLoaded ? "opacity-100" : "opacity-0"
+                                }`}
+                                alt={imagePath}
+                                preload={true}
+                                loading="eager"
                                 onError={() => {
                                     setBrokenImages((prev) => ({
                                         ...prev,
                                         [image]: true
+                                    }));
+                                }}
+                                onLoad={() => {
+                                    setLoadedImages((prev) => ({
+                                        ...prev,
+                                        [image]: true,
                                     }));
                                 }}
                             />

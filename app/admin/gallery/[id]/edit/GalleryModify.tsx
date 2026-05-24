@@ -27,6 +27,7 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
 
     // Fixes
     const [brokenImages, setBrokenImages] = useState<Record<string, boolean>>({});
+    const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
     const deleteImage = async (image : string) => {
 
@@ -279,56 +280,68 @@ export default function GalleryModify({ gallery, images } : { gallery : Gallery,
                         const imagePath = `${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${gallery.id}/${image}`
                         
                         if (brokenImages[image]) return;
-                        return (
 
+                        const isLoaded = loadedImages[image]
+                        return (
                             <div
                                 key={image}
-                                onMouseEnter={() => {
-                                    setCoverHover(image)
-                                }}
-                                onMouseLeave={() => {
-                                    setCoverHover('')
-                                }}
-                                className="relative rounded-3xl border-4 w-fit h-fit overflow-hidden cursor-pointer bg-navbar col-span-1 border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none"
+                                onMouseEnter={() => setCoverHover(image)}
+                                onMouseLeave={() => setCoverHover("")}
+                                className="relative mb-6 break-inside-avoid w-full rounded-3xl border-4 overflow-hidden cursor-pointer bg-navbar border-foreground hover:border-gallery-hover hover:scale-103 transition duration-200 ease-in-out max-h-170 md:max-h-none"
                             >
-                                <div className="relative w-full h-full z-10 flex items-center justify-center">
-                                    <Image
-                                        src={imagePath}
-                                        width={1920} height={1080}
-                                        style={{ width: '1920', height: '1080' }}
-                                        className={`w-full h-full object-contain`}
-                                        alt={imagePath}
-                                        preload={true} loading="eager"
-                                        onError={() => {
-                                            setBrokenImages((prev) => ({
-                                                ...prev,
-                                                [image]: true
-                                            }));
-                                        }}
-                                    />
-        
-                                    <div className={`absolute flex items-center justify-center gap-5 w-full h-full bg-black/50 ${coverHover === image ? "" : "hidden"}`}>
-                                        <button
-                                            type="button"
-                                            className={`flex items-center justify-center bg-background hover:bg-navbar w-17 h-17 rounded-full cursor-pointer`}
-                                            onClick={() => {
-                                                setSelectedImage(image)
-                                            }}
-                                        >
-                                            <Eye className="scale-110 text-foreground"/>
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className={`flex items-center justify-center bg-background hover:bg-navbar w-17 h-17 rounded-full cursor-pointer`}
-                                            onClick={() => {
-                                                setDelete(image)
-                                            }}
-                                        >
-                                            <Trash2 className="scale-110 text-foreground"/>
-                                        </button>
-                                    </div>
+                                {/* skeleton reserves space */}
+                                {!isLoaded && (
+                                <div className="w-full aspect-video animate-pulse bg-foreground/10" />
+                                )}
+
+                                <div
+                                className={`relative w-full z-10 flex items-center justify-center ${
+                                    isLoaded ? "block" : "absolute inset-0 opacity-0"
+                                }`}
+                                >
+                                <Image
+                                    src={imagePath}
+                                    width={1920}
+                                    height={1080}
+                                    className="w-full h-auto object-contain"
+                                    alt={imagePath}
+                                    loading="lazy"
+                                    onError={() => {
+                                    setBrokenImages((prev) => ({
+                                        ...prev,
+                                        [image]: true,
+                                    }));
+                                    }}
+                                    onLoad={() => {
+                                    setLoadedImages((prev) => ({
+                                        ...prev,
+                                        [image]: true,
+                                    }));
+                                    }}
+                                />
+
+                                <div
+                                    className={`absolute inset-0 flex items-center justify-center gap-5 bg-black/50 ${
+                                    coverHover === image ? "" : "hidden"
+                                    }`}
+                                >
+                                    <button
+                                    type="button"
+                                    className="flex items-center justify-center bg-background hover:bg-navbar w-17 h-17 rounded-full cursor-pointer"
+                                    onClick={() => setSelectedImage(image)}
+                                    >
+                                    <Eye className="scale-110 text-foreground" />
+                                    </button>
+
+                                    <button
+                                    type="button"
+                                    className="flex items-center justify-center bg-background hover:bg-navbar w-17 h-17 rounded-full cursor-pointer"
+                                    onClick={() => setDelete(image)}
+                                    >
+                                    <Trash2 className="scale-110 text-foreground" />
+                                    </button>
                                 </div>
-                                
+                                </div>
                             </div>
                         )
                     })}
