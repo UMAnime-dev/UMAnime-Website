@@ -56,6 +56,7 @@ export default function Home() {
         height={1080}
         className="w-full h-auto max-h-190 object-center object-cover"
         priority
+        sizes="100vw"
       />
       <section className="w-full px-6 py-12 sm:px-10 sm:py-16 lg:px-[clamp(40px,6vw,80px)] lg:py-20">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 lg:flex-row lg:justify-center lg:gap-[clamp(40px,8vw,120px)]">

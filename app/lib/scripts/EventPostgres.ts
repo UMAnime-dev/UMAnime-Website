@@ -2,7 +2,10 @@ import postgres from 'postgres'
 import { Event, EventSchema } from "@/data/schedule/EventSchema"
 
 export async function getAllEvents() {
-    const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
 
     try {
         const events = await sql`
@@ -16,7 +19,10 @@ export async function getAllEvents() {
 }
 
 export async function getEventById(id : string) : Promise<null | Event> {
-    const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
 
     try {
         const sql_result = await sql`
@@ -39,7 +45,10 @@ export async function getEventById(id : string) : Promise<null | Event> {
 }
 
 export async function updateEvent(id : string, event : Event) {
-    const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
 
     try {
         const sql_result = await sql`
@@ -73,7 +82,10 @@ export async function updateEvent(id : string, event : Event) {
 }
 
 export async function deleteEventById(id: string): Promise<boolean> {
-    const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
 
     try {
         const sql_result = await sql`
@@ -89,7 +101,10 @@ export async function deleteEventById(id: string): Promise<boolean> {
 }
 
 export async function insertEvent(id: string, event: Event) {
-    const sql = postgres(process.env.POSTGRE_DATABASE_URL!)
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
 
     try {
         const sql_result = await sql`

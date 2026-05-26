@@ -6,7 +6,7 @@ import Link from "next/link"
 import { redirect, RedirectType } from "next/navigation"
 import { useState } from "react"
 
-import { Menu, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown, UserRoundKey } from 'lucide-react';
 import { redirects } from "@/config/redirects"
 
 export default function Navbar() {
@@ -140,12 +140,20 @@ export default function Navbar() {
                             Contact Us
                         </button>
 
-                        <button className="text-xl flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 mx-7 rounded-lg cursor-pointer"
+                        <button className="text-xl flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 ml-2 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.onboarding, RedirectType.push)
                             }}
                         >   
                             Join us!
+                        </button>
+                        
+                        <button className="text-xl flex items-center justify-center hover:bg-navbar-hover text-foreground font-bold font-outfit p-3 mx-2 rounded-lg cursor-pointer"
+                            onClick={() => {
+                                redirect(redirects.login, RedirectType.push)
+                            }}
+                        >   
+                            <UserRoundKey />
                         </button>
                     </main>
 
@@ -205,6 +213,10 @@ export default function Navbar() {
                             Contact Us
                         </button>
 
+                        <button className="flex flex-row gap-1 items-center text-left text-sm font-bold font-outfit px-3 py-2 rounded-xl" onClick={() => redirect(redirects.login, RedirectType.push)}>
+                            <UserRoundKey className="scale-90"/> Login
+                        </button>
+                        
                         <button className="flex flex-row items-center text-left bg-navbar-join text-black font-bold font-outfit px-3 py-2 mt-3 rounded-xl" onClick={() => redirect(redirects.onboarding, RedirectType.push)}>
                             Join us!
                         </button>

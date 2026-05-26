@@ -2,13 +2,9 @@
 
 import Image from "next/image"
 
-export default function EmptyEvents() {
+export default function DatabaseError_Filler() {
     return (
         <section className="mt-20 px-6 sm:px-10 md:px-15 lg:px-[clamp(60px,9.25vw,130px)] xl:px-35 2xl:px-50">
-            <h2 className="font-outfit text-[clamp(16px,2.5vw,28px)] font-semibold text-foreground border-l-4 border-header-border w-fit px-2">
-                Upcoming Events!
-            </h2>
-
             <div className="flex flex-col text-center mb-5 mt-17 items-center">
                 <h2 className="font-outfit text-4xl md:text-5xl font-semibold text-foreground w-fit px-2">
                     🚧 THE HECK-?! 🚧

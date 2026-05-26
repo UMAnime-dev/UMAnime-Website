@@ -1,10 +1,11 @@
 "use client"
 
-import { CalendarClock, ChevronRight, DoorOpen, FolderTree, House, Menu, PanelLeftClose, X } from "lucide-react"
+import { CalendarClock, ChevronRight, DoorOpen, FolderTree, House, Menu, PanelLeftClose, PartyPopper, X } from "lucide-react"
 
 import Image from "next/image"
-import { redirect, RedirectType, usePathname } from "next/navigation"
+import { redirect, RedirectType, usePathname, useRouter } from "next/navigation"
 import { Dispatch, SetStateAction } from "react"
+import { authClient } from "@/lib/auth-client"
 
 export default function AdminSideNav({state} : {state : {
             visible: boolean;
@@ -14,9 +15,11 @@ export default function AdminSideNav({state} : {state : {
 
     const pathname = usePathname();
 
+    const router = useRouter()
     const dashboard = '/admin'
     const scheduler = '/admin/events'
     const gallery = '/admin/gallery'
+    const features = '/admin/features'
 
     const isActive = (route: string) => {
         if (route === '/admin') return pathname === '/admin';
@@ -72,13 +75,29 @@ export default function AdminSideNav({state} : {state : {
                         <FolderTree className="min-w-6"/>
                         {state.visible ? "Gallery Manager" : ""}
                     </button>
+                    <button 
+                        id="btn_features" 
+                        className={`${isActive(features) ? "bg-sidebar-hover" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover`}
+                        onClick={() => {
+                            redirect(features, RedirectType.push)
+                        }}
+                    >
+                        <PartyPopper className="min-w-6"/>
+                        {state.visible ? "Website Features" : ""}
+                    </button>
                 </section>
 
                 <button 
                     id="btn_exit" 
                     className={`flex flex-row gap-3 font-outfit font-medium p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover mt-auto mb-4 bg-sidebar-logout`}
-                    onClick={() => {
-                        redirect('/', RedirectType.push)
+                    onClick={async () => {
+                        await authClient.signOut({
+                            fetchOptions: {
+                                onSuccess: () => {
+                                    router.push("/")
+                                }
+                            }
+                        })
                     }}
                 >
                     <DoorOpen className="min-w-6"/>
@@ -155,8 +174,14 @@ export default function AdminSideNav({state} : {state : {
                 <button 
                     id="btn_exit" 
                     className={`flex flex-row gap-3 font-outfit font-medium w-full p-3.5 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover mt-auto mb-8 bg-sidebar-logout`}
-                    onClick={() => {
-                        redirect('/', RedirectType.push)
+                    onClick={async () => {
+                        await authClient.signOut({
+                            fetchOptions: {
+                                onSuccess: () => {
+                                    router.push("/")
+                                }
+                            }
+                        })
                     }}
                 >
                     <DoorOpen className="min-w-6"/>
