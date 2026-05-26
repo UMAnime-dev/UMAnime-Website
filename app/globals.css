@@ -33,6 +33,8 @@
   --color-crumbs-hover: var(--admin-hover);
   --color-admin-edit: var(--admin-edit);
 
+  --color-announce-default: var(--announce-default);
+
   --font-outfit: "Outfit", sans-serif;
   --font-mono: "Roboto Mono", monospace;
   --font-roboto: "Roboto", sans-serif;
@@ -89,6 +91,8 @@
 
   --admin-hover: #ffdeed;
   --admin-edit: #9e93ffa2;
+
+  --announce-default: #dadada;
 }
 
 .dark {
@@ -117,4 +121,6 @@
   --sidebar-logout: #36325e;
   --admin-edit: #9e93ffa2;
   --admin-hover: #685ec0a2;
+
+  --announce-default: #4d459c;
 }

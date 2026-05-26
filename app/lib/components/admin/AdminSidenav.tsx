@@ -77,9 +77,9 @@ export default function AdminSideNav({state} : {state : {
                     </button>
                     <button 
                         id="btn_features" 
-                        className={`${isActive(features) ? "bg-sidebar-hover" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover`}
+                        className={`${isActive(features) ? "bg-sidebar-hover" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-not-allowed opacity-45 whitespace-nowrap hover:bg-sidebar-hover`}
                         onClick={() => {
-                            redirect(features, RedirectType.push)
+                            // redirect(features, RedirectType.push)
                         }}
                     >
                         <PartyPopper className="min-w-6"/>

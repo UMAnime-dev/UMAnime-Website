@@ -22,6 +22,8 @@ export default function LoginPage() {
     const router = useRouter()
 
     const signIn = async () => {
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { data, error } = await authClient.signIn.email({
             email: emailInput,
             password: passwordInput,

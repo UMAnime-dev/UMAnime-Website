@@ -8,6 +8,7 @@ import { useState } from "react"
 
 import { Menu, ChevronDown, UserRoundKey } from 'lucide-react';
 import { redirects } from "@/config/redirects"
+import AnnouncementBar from "@/app/lib/components/AnnounceBar"
 
 export default function Navbar() {
 
@@ -223,6 +224,7 @@ export default function Navbar() {
                     </div>
                 )}
             </nav>
+            <AnnouncementBar/>
             
         </>
     )

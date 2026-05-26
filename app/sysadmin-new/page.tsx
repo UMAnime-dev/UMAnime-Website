@@ -27,6 +27,7 @@ export default function NewAdminCreator() {
             strict: true
         })
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { data, error } = await authClient.signUp.email({
             name: nameInput,
             email: emailInput,
