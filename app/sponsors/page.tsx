@@ -16,8 +16,8 @@ export default function SponsorPage() {
             <main className="relative w-full min-h-screen overflow-x-hidden bg-background">
                 <Navbar/>
                     <div className="flex flex-col text-center mt-17 items-center">
-                        <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground border-l-4 border-header-border w-fit px-2">
-                            Our Sponsors!
+                        <h2 className="font-outfit text-4xl md:text-5xl font-semibold text-foreground w-fit px-2">
+                            Club Sponsorships
                         </h2>
                         <section key="desc" className="flex flex-col gap-5 pt-15 mx-10 md:mx-40 lg:mx-50 text-start">
                             <p className="font-outfit md:text-base text-foreground w-full">

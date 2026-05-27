@@ -2,7 +2,6 @@
 
 import Navbar from "./lib/components/navbar";
 import Image from "next/image"
-import { redirect, RedirectType } from "next/navigation";
 import Footer from "./lib/components/footer";
 
 export default function Home() {
