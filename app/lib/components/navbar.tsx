@@ -40,7 +40,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`w-full z-900 bg-navbar h-20 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
+            <nav className={`w-full z-900 bg-navbar min-h-20 navbar:h-20 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
                     <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-30 sm:w-33.5 object-cover cursor-pointer" loading="eager" onClick={() => {redirect('/', RedirectType.push)}}/>
 
