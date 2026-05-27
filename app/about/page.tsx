@@ -2,6 +2,8 @@ import Footer from "../lib/components/footer";
 import Navbar from "../lib/components/navbar";
 
 import Image from "next/image";
+import UMAnime from "@/public/UMAnime.svg"
+import Logo from "@/public/Logo.png"
 
 export default function ClubPage() {
  
@@ -10,14 +12,20 @@ export default function ClubPage() {
             <Navbar/>
 
             <section className="flex flex-col mx-10 sm:mx-20 xl:mx-40">
-                <div className="flex flex-col mt-20 w-full items-center md:items-start border-b-2 border-foreground">
+                <div className="flex mt-20 w-full justify-center md:justify-start border-b-2 border-foreground">
                     <h2 className="font-outfit text-2xl md:text-3xl font-semibold text-foreground w-fit px-2 pb-2">
                         What is the UMAnime Club?
                     </h2>
                 </div>
                 <section className="flex lg:flex-row flex-col my-10 sm:my-8 lg:gap-30 justify-center">
                     <div className="flex items-center justify-center lg:w-150 w-full px-10">
-                        <Image src={'/UMAnime.svg'} alt="UMAnime" width={400} height={400}/>
+                        <Image 
+                            src={UMAnime} 
+                            alt="UMAnime" 
+                            width={350}
+                            priority={true} 
+                            unoptimized={true} 
+                        />
                     </div>
                     
                     <div className="w-full flex flex-col pt-8">
@@ -46,7 +54,13 @@ export default function ClubPage() {
 
                 <section className="flex lg:flex-row flex-col mt-0 mb-15 sm:mb-10 sm:mt-8 lg:gap-30 lg:justify-center">
                     <div className="flex items-center justify-center lg:w-150 w-full px-10">
-                        <Image src={'/Logo.png'} alt="UMAnime" width={400} height={400}/>
+                        <Image 
+                            src={Logo} 
+                            alt="UMAnime" 
+                            width={300}
+                            priority={true} 
+                            unoptimized={true} 
+                        />
                     </div>
                     
                     <div className="w-full flex flex-col px-[clamp(30px,4.5vw,55px)] lg:px-0">

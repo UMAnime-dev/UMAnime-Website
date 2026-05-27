@@ -17,7 +17,7 @@ export default function Staff() {
             <main className="relative w-full min-h-screen overflow-x-hidden bg-background">
                 <Navbar/>
                     <div className="flex flex-col text-center mb-15 mt-17 items-center">
-                        <h2 className="font-outfit text-[clamp(24px,2.5vw,36px)] font-semibold text-foreground border-l-4 border-header-border w-fit px-2">
+                        <h2 className="font-outfit text-xl md:text-3xl font-semibold text-foreground w-fit px-2 pb-2">
                             Meet the UMAnime Team!
                         </h2>
                     </div>
