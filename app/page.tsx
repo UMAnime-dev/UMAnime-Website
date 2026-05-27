@@ -139,10 +139,10 @@ export default function Home() {
                   </p>
                 </div>
 
-                <button className="mt-6 w-fit rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition cursor-pointer hover:opacity-80"
+                {/* <button className="mt-6 w-fit rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition cursor-pointer hover:opacity-80"
                   onClick={() => {redirect(sample.link, RedirectType.push)}}>
                   Learn More
-                </button>
+                </button> */}
               </div>
               </article>
             ))}
