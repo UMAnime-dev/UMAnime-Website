@@ -4,11 +4,14 @@ import Image from "next/image"
 
 import Link from "next/link"
 import { redirect, RedirectType } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Menu, ChevronDown, UserRoundKey } from 'lucide-react';
 import { redirects } from "@/config/redirects"
 import AnnouncementBar from "@/app/lib/components/AnnounceBar"
+import EventBar from "@/app/lib/components/EventBar"
+import { Event } from "@/data/schedule/EventSchema"
+import { getUpcomingEvent } from "../scripts/NavbarActions"
 
 export default function Navbar() {
 
@@ -21,14 +24,28 @@ export default function Navbar() {
     const [mobileAboutDropdown, setMobileAboutDropdown] = useState(false)
     const [mobileEventsDropdown, setMobileEventsDropdown] = useState(false)
 
+    const [upcoming, setUpcoming] = useState<Event | null>(null)
+
+    useEffect(() => {
+        const fetchData = async () => {
+        
+            const upcomings = await getUpcomingEvent()
+            console.log(upcomings)
+            setUpcoming(upcomings)
+
+        }
+
+        fetchData()
+    }, [])
+
     return (
         <>
-            <nav className={`w-full z-900 bg-navbar min-h-25 xl:min-h-27 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
+            <nav className={`w-full z-900 bg-navbar h-20 flex px-[clamp(20px,5vw,60px)] ${mobileMenuOpen ? 'flex-col py-4' : ''}`}>
                 <header className="w-full min-h-20 flex items-center">
-                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-30 sm:w-35 md:w-40 object-cover cursor-pointer" loading="eager" onClick={() => {redirect('/', RedirectType.push)}}/>
+                    <Image src='/UMAnime.svg' alt="UM Anime Club Logo" width={0} height={0} style={{ width: '1920', height: '1080' }} className="w-30 sm:w-33.5 object-cover cursor-pointer" loading="eager" onClick={() => {redirect('/', RedirectType.push)}}/>
 
                     {/* PC Version */}
-                    <main className="navbar:flex! hidden flex-row ml-auto">
+                    <main className="navbar:flex! hidden flex-row items-center ml-auto">
 
                         {/* Click to view club info (including yukari), staff team*/}
                         <div className="relative"
@@ -81,7 +98,7 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        <Link className="text-xl flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                        <Link className="text-lg flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             href="/membership">
                             Membership
                         </Link>
@@ -125,7 +142,7 @@ export default function Navbar() {
                             )}
                         </div>
 
-                        <button className="text-xl flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                        <button className="text-lg flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.sponsors, RedirectType.push)
                             }}
@@ -133,7 +150,7 @@ export default function Navbar() {
                             Sponsors
                         </button>
 
-                        <button className="text-xl flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
+                        <button className="text-lg flex items-center justify-center bg-navbar hover:bg-navbar-hover hover:underline text-foreground font-semibold font-outfit py-2 px-4 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.contact, RedirectType.push)
                             }}
@@ -141,7 +158,7 @@ export default function Navbar() {
                             Contact Us
                         </button>
 
-                        <button className="text-xl flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 ml-2 rounded-lg cursor-pointer"
+                        <button className="text-lg flex items-center justify-center bg-navbar-join hover:bg-navbar-join-hover hover:underline text-black font-bold font-outfit py-2 px-5 ml-2 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.onboarding, RedirectType.push)
                             }}
@@ -149,7 +166,7 @@ export default function Navbar() {
                             Join us!
                         </button>
                         
-                        <button className="text-xl flex items-center justify-center hover:bg-navbar-hover text-foreground font-bold font-outfit p-3 mx-2 rounded-lg cursor-pointer"
+                        <button className="text-lg flex items-center justify-center hover:bg-navbar-hover text-foreground font-bold font-outfit p-3 mx-2 rounded-lg cursor-pointer"
                             onClick={() => {
                                 redirect(redirects.login, RedirectType.push)
                             }}
@@ -225,7 +242,7 @@ export default function Navbar() {
                 )}
             </nav>
             <AnnouncementBar/>
-            
+            <EventBar event={upcoming}/>
         </>
     )
 }

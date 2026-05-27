@@ -24,14 +24,14 @@ export default async function Gallery({
     const gallery_obj = await GalleriesSchema.safeParseAsync(gallery_result)
     
     if (!gallery_obj.success) {
-        redirect('/events', RedirectType.replace)
+        redirect('/gallery', RedirectType.replace)
     }
     const event = gallery_obj.data.find(cursor => cursor.id === id)
     const images = await getGalleryByID(id)
 
 
     if (images === undefined || !event) {
-        redirect('/events', RedirectType.replace)
+        redirect('/gallery', RedirectType.replace)
     }
 
     return (

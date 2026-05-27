@@ -29,7 +29,7 @@ export default function GalleryPort({ galleries } : { galleries : Galleries }) {
                                         return (
                                             <div key={gallery.id} className="flex flex-col items-start gap-2">
                                                 <button key={gallery.id} className="relative rounded-3xl border-5 overflow-hidden cursor-pointer max-h-67.5 max-w-112.5 border-foreground hover:border-gallery-hover hover:scale-105 transition duration-200 ease-in-out"
-                                                    onClick={() => {redirect(`/events/${gallery.id}`, RedirectType.push)}}
+                                                    onClick={() => {redirect(`/gallery/${gallery.id}`, RedirectType.push)}}
                                                 >
                                                     <Image src={`${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${gallery.id}/${gallery.cover_image}`} width={400} height={300} style={{ width: '400', height: '300' }} className={`w-full h-full object-cover object-[${gallery.cover_offset}]`} alt={gallery.id}/>
                                                 </button>

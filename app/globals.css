@@ -34,6 +34,7 @@
   --color-admin-edit: var(--admin-edit);
 
   --color-announce-default: var(--announce-default);
+  --color-event-default: var(--event-default);
 
   --font-outfit: "Outfit", sans-serif;
   --font-mono: "Roboto Mono", monospace;
@@ -93,6 +94,7 @@
   --admin-edit: #9e93ffa2;
 
   --announce-default: #dadada;
+  --event-default: #4d459c;
 }
 
 .dark {
@@ -123,4 +125,5 @@
   --admin-hover: #685ec0a2;
 
   --announce-default: #4d459c;
+  --event-default: #7d5fa5;
 }

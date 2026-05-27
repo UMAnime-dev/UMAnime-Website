@@ -26,7 +26,8 @@ export default function GalleryView({ images, eventId } : { images: string[] , e
                             src={`${process.env.NEXT_PUBLIC_GALLERY_DIRECTORY}/${eventId}/${selectedImage}`}
                             width={1920}
                             height={1080}
-                            quality={100}
+                            quality={70}
+                            loading="lazy"
                             className="w-auto h-auto md:max-w-[80%] md:max-h-[80%] object-contain z-999"
                             alt="Selected image"
                         />

@@ -4,7 +4,7 @@ export const redirects = {
     staff: "/staff",
     membership: "/membership",
     events: "/events",
-    gallery: "/events#gallery",
+    gallery: "/gallery",
     sponsors: "/sponsors",
     contact: "/contact",
     onboarding: "https://discord.gg/G52Wn6a",
