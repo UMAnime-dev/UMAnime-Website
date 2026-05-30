@@ -1,6 +1,6 @@
 "use client"
 
-import { CalendarClock, ChevronRight, DoorOpen, FolderTree, House, Menu, PanelLeftClose, PartyPopper, X } from "lucide-react"
+import { CalendarClock, ChevronRight, DoorOpen, FolderTree, House, IdCard, Menu, PanelLeftClose, PartyPopper, X } from "lucide-react"
 
 import Image from "next/image"
 import { redirect, RedirectType, usePathname, useRouter } from "next/navigation"
@@ -19,7 +19,7 @@ export default function AdminSideNav({state} : {state : {
     const dashboard = '/admin'
     const scheduler = '/admin/events'
     const gallery = '/admin/gallery'
-    const features = '/admin/features'
+    const membership = '/admin/membership'
 
     const isActive = (route: string) => {
         if (route === '/admin') return pathname === '/admin';
@@ -77,13 +77,13 @@ export default function AdminSideNav({state} : {state : {
                     </button>
                     <button 
                         id="btn_features" 
-                        className={`${isActive(features) ? "bg-sidebar-hover" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-not-allowed opacity-45 whitespace-nowrap hover:bg-sidebar-hover`}
+                        className={`${isActive(membership) ? "bg-sidebar-hover" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-pointer whitespace-nowrap hover:bg-sidebar-hover`}
                         onClick={() => {
-                            // redirect(features, RedirectType.push)
+                            redirect(membership, RedirectType.push)
                         }}
                     >
-                        <PartyPopper className="min-w-6"/>
-                        {state.visible ? "Website Features" : ""}
+                        <IdCard className="min-w-6"/>
+                        {state.visible ? "Memberships" : ""}
                     </button>
                 </section>
 
@@ -159,7 +159,7 @@ export default function AdminSideNav({state} : {state : {
 
                     <button 
                         id="btn_gallery" 
-                        className={`${isActive(gallery) ? "outline-2 outline-foreground outline-solid" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-pointer whitespace-nowrap bg-sidebar-hover`}
+                        className={`${isActive(membership) ? "outline-2 outline-foreground outline-solid" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-pointer whitespace-nowrap bg-sidebar-hover`}
                         onClick={() => {
                             state.setVisiblity(true)
                             redirect(gallery, RedirectType.push)
@@ -167,6 +167,19 @@ export default function AdminSideNav({state} : {state : {
                     >
                         <FolderTree className="min-w-6"/>
                         {!state.visible ? "Gallery Manager" : ""}
+                        <ChevronRight className="ml-auto" />
+                    </button>
+
+                    <button 
+                        id="btn_membership" 
+                        className={`${isActive(gallery) ? "outline-2 outline-foreground outline-solid" : "" } flex flex-row gap-3 font-outfit font-medium p-3 rounded-2xl cursor-pointer whitespace-nowrap bg-sidebar-hover`}
+                        onClick={() => {
+                            state.setVisiblity(true)
+                            redirect(membership, RedirectType.push)
+                        }}
+                    >
+                        <FolderTree className="min-w-6"/>
+                        {!state.visible ? "Memberships" : ""}
                         <ChevronRight className="ml-auto" />
                     </button>
                 </section>
