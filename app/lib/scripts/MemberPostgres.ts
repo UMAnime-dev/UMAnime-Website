@@ -56,3 +56,51 @@ export async function insertMember(id : string, memberData: z.infer<typeof Membe
         await sql.end()
     }
 }
+
+export async function deleteMemberById(id: string): Promise<boolean> {
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
+
+    try {
+        const sql_result = await sql`
+            delete from public.membership
+            where id = ${id}
+            returning id
+        `
+
+        return sql_result.length > 0
+    } finally {
+        await sql.end()
+    }
+}
+
+export async function getMemberByIdOrStudentId(id : string, student_id : string) : Promise<boolean> {
+    const sql = postgres(process.env.POSTGRE_DATABASE_URL!, {
+        idle_timeout: 20,
+        max_lifetime: 60 * 30.
+    })
+
+    try {
+        const id_result = await sql`
+            select *
+            from public.membership
+            where id = ${id}
+        `
+
+        if (id_result.length == 0) {
+            const student_result = await sql`
+                select *
+                from public.membership
+                where "student_id" = ${student_id}
+            `
+            if (student_result.length == 0) {
+                return false
+            }
+        }
+        return true
+    } finally {
+        await sql.end()
+    }
+}

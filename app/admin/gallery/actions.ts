@@ -1,4 +1,4 @@
-"use server";
+"use server"
 
 import { deleteGalleryById, postNewGallery } from '@/app/lib/scripts/GalleryPostgres';
 import { Gallery } from '@/data/gallery/GallerySchema';
