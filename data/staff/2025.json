@@ -1,0 +1,114 @@
+[
+    {
+        "name": "Seth Paras",
+        "position": "President · Kaichou",
+        "photoUrl": "/staff/2025/sethP.png",
+        "bio": "/staff/2025/bio/sethP.md",
+        "category": "executive"
+    },{
+        "name": "Prothoma",
+        "position": "VP of Internal Affairs",
+        "photoUrl": "/staff/2025/prothoma.png",
+        "bio": "/staff/2025/bio/prothoma.md",
+        "category": "executive"
+    },{
+        "name": "Charlie",
+        "position": "VP of Communications",
+        "photoUrl": "/staff/2025/charlie.png",
+        "bio": "/staff/2025/bio/charlie.md",
+        "category": "executive"
+    },{
+        "name": "Akshar Patel",
+        "position": "Treasurer",
+        "photoUrl": "/staff/2025/akshar.png",
+        "bio": "/staff/2025/bio/akshar.md",
+        "category": "executive"
+    },{
+        "name": "Lem",
+        "position": "Lead Moderator",
+        "photoUrl": "/staff/2025/lem.png",
+        "bio": "/staff/2025/bio/lem.md",
+        "category": "executive"
+    },{
+        "name": "Ryann",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/ryann.png",
+        "bio": "/staff/2025/bio/ryann.md",
+        "category": "events"
+    },{
+        "name": "Jason",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/jason.png",
+        "bio": "/staff/2025/bio/jason.md",
+        "category": "events"
+    },{
+        "name": "Joseph",
+        "position": "Artists",
+        "photoUrl": "/staff/2025/joseph.png",
+        "bio": "/staff/2025/bio/joseph.md",
+        "category": "artists"
+    },
+    {
+        "name": "Melissa",
+        "position": "Artists",
+        "photoUrl": "/staff/2025/melissa.png",
+        "bio": "/staff/2025/bio/melissa.md",
+        "category": "artists"
+    },
+    {
+        "name": "Melinda",
+        "position": "Artists",
+        "photoUrl": "/staff/2025/melinda.png",
+        "bio": "/staff/2025/bio/melinda.md",
+        "category": "artists"
+    },
+    {
+        "name": "Sheral",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/sheral.png",
+        "bio": "/staff/2025/bio/sheral.md",
+        "category": "events"
+    },
+    {
+        "name": "Oliver",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/oliver.png",
+        "bio": "/staff/2025/bio/oliver.md",
+        "category": "events"
+    },
+    {
+        "name": "Carr",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/carr.png",
+        "bio": "/staff/2025/bio/carr.md",
+        "category": "events"
+    },
+    {
+        "name": "Dalton",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/dalton.png",
+        "bio": "/staff/2025/bio/dalton.md",
+        "category": "events"
+    },
+    {
+        "name": "Arya",
+        "position": "Artists",
+        "photoUrl": "/staff/2025/arya.png",
+        "bio": "/staff/2025/bio/arya.md",
+        "category": "artists"
+    },
+    {
+        "name": "Lex",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/lex.png",
+        "bio": "/staff/2025/bio/lex.md",
+        "category": "events"
+    },
+    {
+        "name": "Seth S",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2025/sethS.png",
+        "bio": "/staff/2025/bio/sethS.md",
+        "category": "events"
+    }
+]

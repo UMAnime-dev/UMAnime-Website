@@ -1,0 +1,1 @@
+Hello! Im Jan. Co-President of UMAnime. I don't why I chose to become a President. please let me out!!!

@@ -1,0 +1,142 @@
+[
+    {
+        "name": "Jan",
+        "position": "Co-President · Kaichou",
+        "photoUrl": "/staff/2026/jan.png",
+        "bio": "/staff/2026/bio/jan.md",
+        "category": "executive"
+    },{
+        "name": "Abby",
+        "position": "Co-President · Kaichou",
+        "photoUrl": "/staff/2026/abby.png",
+        "bio": "/staff/2026/bio/abby.md",
+        "category": "executive"
+    },{
+        "name": "Jason",
+        "position": "VP of Internal Affairs",
+        "photoUrl": "/staff/2026/jason.png",
+        "bio": "/staff/2026/bio/jason.md",
+        "category": "executive"
+    },{
+        "name": "Sheral",
+        "position": "VP of External Affairs",
+        "photoUrl": "/staff/2026/sheral.png",
+        "bio": "/staff/2026/bio/sheral.md",
+        "category": "executive"
+    },{
+        "name": "Osaru",
+        "position": "VP of Communications",
+        "photoUrl": "/staff/2026/osaru.png",
+        "bio": "/staff/2026/bio/osaru.md",
+        "category": "executive"
+    },{
+        "name": "Maverick",
+        "position": "Treasurer",
+        "photoUrl": "/staff/2026/maverick.png",
+        "bio": "/staff/2026/bio/maverick.md",
+        "category": "executive"
+    },{
+        "name": "Chris",
+        "position": "Lead Moderator",
+        "photoUrl": "/staff/2026/chris.png",
+        "bio": "/staff/2026/bio/chris.md",
+        "category": "executive"
+    },{
+        "name": "Saucer",
+        "position": "Artists",
+        "photoUrl": "/staff/2026/saucer.png",
+        "bio": "/staff/2026/bio/saucer.md",
+        "category": "artists"
+    },
+    {
+        "name": "West",
+        "position": "Artists",
+        "photoUrl": "/staff/2026/west.png",
+        "bio": "/staff/2026/bio/west.md",
+        "category": "artists"
+    },
+    {
+        "name": "Midnight",
+        "position": "Artists",
+        "photoUrl": "/staff/2026/midnight.png",
+        "bio": "/staff/2026/bio/midnight.md",
+        "category": "artists"
+    },
+    {
+        "name": "Jhel",
+        "position": "Artists",
+        "photoUrl": "/staff/2026/jhel.png",
+        "bio": "/staff/2026/bio/jhel.md",
+        "category": "artists"
+    },
+    {
+        "name": "Tatem",
+        "position": "Artists",
+        "photoUrl": "/staff/2026/tatem.png",
+        "bio": "/staff/2026/bio/tatem.md",
+        "category": "artists"
+    },
+    {
+        "name": "Judas",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2026/judas.png",
+        "bio": "/staff/2026/bio/judas.md",
+        "category": "events"
+    },
+    {
+        "name": "Oliver",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2026/oliver.png",
+        "bio": "/staff/2026/bio/oliver.md",
+        "category": "events"
+    },
+    {
+        "name": "Ethan",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2026/ethan.png",
+        "bio": "/staff/2026/bio/ethan.md",
+        "category": "events"
+    },
+    {
+        "name": "k <3",
+        "position": "Events Staff",
+        "photoUrl": "/staff/2026/k.png",
+        "bio": "/staff/2026/bio/k.md",
+        "category": "events"
+    },
+    {
+        "name": "Charlie",
+        "position": "Social Media Team",
+        "photoUrl": "/staff/2026/charlie.png",
+        "bio": "/staff/2026/bio/charlie.md",
+        "category": "media"
+    },
+    {
+        "name": "Buko",
+        "position": "Social Media Team",
+        "photoUrl": "/staff/2026/buko.png",
+        "bio": "/staff/2026/bio/buko.md",
+        "category": "media"
+    },
+    {
+        "name": "The wind",
+        "position": "Social Media Team",
+        "photoUrl": "/staff/2026/wind.png",
+        "bio": "/staff/2026/bio/wind.md",
+        "category": "media"
+    },
+    {
+        "name": "Doki",
+        "position": "Social Media Team",
+        "photoUrl": "/staff/2026/doki.png",
+        "bio": "/staff/2026/bio/doki.md",
+        "category": "media"
+    },
+    {
+        "name": "Lanze",
+        "position": "Social Media Team",
+        "photoUrl": "/staff/2026/lanze.png",
+        "bio": "/staff/2026/bio/lanze.md",
+        "category": "media"
+    }
+]

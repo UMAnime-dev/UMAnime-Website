@@ -21,6 +21,8 @@ export const auth = betterAuth({
                 type: "string",
             }
         }
-    }
+    },
+
+    trustedOrigins: [process.env.DOMAIN_LINK!]
 
 })
